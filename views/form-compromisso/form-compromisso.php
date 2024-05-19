@@ -16,6 +16,7 @@
 
     <h2>Preencha o termo de compromisso abaixo:</h2>
 
+    <div class="container">
     <form id="termo" action="processar-formulario.php" method="post">
 
         <!-- Dados da empresa. -->
@@ -103,6 +104,7 @@
             <label for="vt">Valor do VT:</label>
             <input type="text" id="vt" name="vt">
         </div>
+       
 
 
         <!-- Apolice. -->
@@ -112,6 +114,7 @@
         <!-- Envio. -->
         <button type="submit">Enviar</button>
     </form>
+    </div>
 
 
     <!-- Scripts para os "botões". -->

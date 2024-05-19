@@ -30,8 +30,9 @@
 
         Selecione uma das opções abaixo : <br>
 
-        <button id="cadastro-estagio">Cadastrar Inicio de Estágio</button>
-        <button id="envio-docs">Enviar documentação </button>
+        <button id="cadastro-estagio">Termo de Compromisso</button>
+        <button id="plano-atividades">Plano de atividades </button>
+        <button id="envio-docs">Enviar Documentação</button>
         <button id="status">Acompanhamento</button>
         <button id="encerramento-estagio">Solicitar encerramento de estágio</button>
     </main>

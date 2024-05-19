@@ -12,15 +12,51 @@
 main {
     background-color: #F2F2F2;
     padding: 20px 40px 20px 40px; 
+}
+
+.container{
     border-radius: 20px; 
-    box-shadow: 10px 10px 10px rgba(0, 0, 0, 1); /
+    box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.1); 
+    background-color: #FFFFFF;
+  
 }
 
 #termo {
-    background-color: #FFFFFF;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
+    padding: 20px;
+    gap: 10px;
 }
 
+input {
+    background-color: #cccccc73;
+    border-width: 1px;
+    border-radius: 15px;
+    height: 40px;
+}
+
+button {
+
+    font-family: "Inter", sans-serif;
+    font-size : 18px;
+    font-weight: 600;
+    background-color: #AF1A1A; 
+    color: white; 
+    border: none; 
+    cursor: pointer;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 10px 45px;
+    border-radius: 15px;
+
+    margin: 20px auto;
+
+}
+
+button:hover {
+    background-color: #921515; 
+}

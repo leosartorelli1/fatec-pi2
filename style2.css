@@ -9,12 +9,20 @@
     font-weight: 600;
 }
 
+ul {
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    
+}
+
 nav {
     background-color: #D9D9D9;
     display: flex;
     justify-content: space-between;
     padding: 15px;
 }
+
 
 body {
     background-color : #F2F2F2;
@@ -45,3 +53,4 @@ button {
 button:hover {
     background-color: #851414 ;
 }
+
