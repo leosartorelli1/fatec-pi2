@@ -1,0 +1,26 @@
+* {
+    margin: 0;
+    padding: 0; 
+    box-sizing: border-box;
+} 
+
+:root {
+    font-family: "Inter", sans-serif;
+    font-weight: 600;
+}
+
+main {
+    background-color: #F2F2F2;
+    padding: 20px 40px 20px 40px; 
+    border-radius: 20px; 
+    box-shadow: 10px 10px 10px rgba(0, 0, 0, 1); /
+}
+
+#termo {
+    background-color: #FFFFFF;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
