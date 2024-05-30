@@ -111,6 +111,9 @@
         <label for="apolice">Numero da Apolice do Seguro:</label>
         <input type="text" id="apolice" name="apolice" required>
 
+        <label for="seguradora">Nome da Seguradora:</label>
+        <input type="text" id="seguradora" name="seguradora" required>
+
         <!-- Envio. -->
         <button type="submit">Enviar</button>
     </form>
