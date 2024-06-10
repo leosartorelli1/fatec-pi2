@@ -2,23 +2,34 @@
 $usuario = $_POST['usuario'];
 $senha = $_POST['senha'];
 
-$sql = "SELECT * FROM tb_usuarios WHERE
-usuario ='{$usuario}' AND
-senha = '{$senha}'";
-
 include "../../classes/Conexao.php";
 
-$resultado = $conexao->query($sql);
-$linha = $resultado->fetch();
+$sql = "SELECT * FROM tb_usuarios WHERE usuario = :usuario AND senha = :senha";
+$stmt = $conexao->prepare($sql);
+$stmt->bindParam(':usuario', $usuario);
+$stmt->bindParam(':senha', $senha);
+$stmt->execute();
+
+$linha = $stmt->fetch(PDO::FETCH_ASSOC);
 $usuario_logado = $linha['usuario'];
+$id_aluno = $linha['id_usuario']; 
+$permissao = $linha['permissao'];
 
 if ($usuario_logado == null) {
     header('Location:usuario-erro.php');
-}
-else{
+    exit();
+} else {
     session_start();
-     $_SESSION['usuario_logado'] = $usuario_logado;
-     header("Location:../../index2.php");
-}
+    $_SESSION['usuario_logado'] = $usuario_logado;
+    $_SESSION['id_aluno'] = $id_aluno; 
 
+    if ($permissao == 'aluno') {
+        header("Location:../../index2.php");
+    } elseif ($permissao == 'prof') {
+        header("Location:../../index3.php");
+    } else {
+        header("Location:usuario-erro.php");
+    }
+    exit();
+}
 ?>

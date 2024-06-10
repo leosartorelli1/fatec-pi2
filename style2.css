@@ -38,7 +38,7 @@ h2 {
     font-size: 20px;
 }
 
-button {
+.button, button {
     text-decoration: none;
     color: white;
     box-shadow: none;

@@ -3,25 +3,29 @@ require '../../dompdf/vendor/autoload.php';
 use Dompdf\Dompdf;
 include "../../classes/Conexao.php";
 
-$id_aluno = 1;
-$sql = "SELECT nome, rg, logradouro, numero, bairro, cidade FROM tb_alunos WHERE id_aluno = $id_aluno";
-$resultado = $conexao->query($sql);
+session_start();
+if (!isset($_SESSION['id_aluno'])) {
+    echo "Erro: ID do aluno não encontrado. Faça login novamente.";
+    exit();
+}
 
+$id_aluno = $_SESSION['id_aluno'];
+$sql = "SELECT nome, rg, logradouro, numero, bairro, cidade FROM tb_alunos WHERE fk_id_usuario = :id_aluno";
+$stmt = $conexao->prepare($sql);
+$stmt->bindParam(':id_aluno', $id_aluno);
+$stmt->execute();
+$resultado = $stmt->fetch(PDO::FETCH_ASSOC);
 
 if ($resultado) {
-    $row = $resultado->fetch(PDO::FETCH_ASSOC);
-    if ($row) {
-        $nome = $row['nome'];
-        $rg = $row['rg'];
-        $logradouro = $row['logradouro'];
-        $numero = $row['numero'];
-        $bairro = $row['bairro'];
-        $cidade = $row['cidade'];
-    } else {
-        echo "Nenhum dado encontrado para o ID fornecido.";
-    }
+    $nome = $resultado['nome'];
+    $rg = $resultado['rg'];
+    $logradouro = $resultado['logradouro'];
+    $numero = $resultado['numero'];
+    $bairro = $resultado['bairro'];
+    $cidade = $resultado['cidade'];
 } else {
-    echo "Erro na consulta: " . $conexao->errorInfo();
+    echo "Nenhum dado encontrado para o ID fornecido.";
+    exit();
 }
 
 //Empresa
@@ -66,7 +70,6 @@ $stmt_representante->bindParam(':cargo_representante', $cargo_representante);
 $sql_estagio = "INSERT INTO tb_estagios (horario_inicio, horario_termino, inicio_intervalo, termino_intervalo, total_horas, data_inicio, data_termino, salario, vt, apolice, seguradora) 
                 VALUES (:horario_inicio, :horario_termino, :inicio_intervalo, :termino_intervalo, :total_horas, :data_inicio, :data_termino, :salario, :vt, :apolice, :seguradora)";
 
-
 $stmt_estagio = $conexao->prepare($sql_estagio);
 
 $stmt_estagio->bindParam(':horario_inicio', $horario_inicio);
@@ -94,8 +97,8 @@ $html = "
     </style>
 </head>
 <body>
-    <p> <strong> ATENÇÃO: Rubricar todas as páginas e assinar na última. As assinaturas deverão constar em folha que tenha, pelo menos uma cláusula do Termo de Compromisso de Estágio (a última página não deverá conter somente as assinaturas). Providenciar 03 (três) vias em papel timbrado pela empresa, uma para a empresa, outra para a Instituição de Ensino e outra para o aluno. (Apagar esta informação para a impressão e assinaturas) assinaturas </strong> <br> <br> <br>
-    TERMO DE COMPROMISSO PARA A REALIZAÇÃO DE ESTÁGIO SUPERVISIONADO OBRIGATÓRIO NÃO REMUNERADO (Lei nº 11.778/08) <br> <br> <br>
+   <p>
+    TERMO DE COMPROMISSO PARA A REALIZAÇÃO DE ESTÁGIO SUPERVISIONADO OBRIGATÓRIO (Lei nº 11.778/08) <br> <br> <br>
     Pelo presente instrumento, as partes a seguir nomeadas e ao final assinadas, de um lado <strong>$nome_empresa</strong>, inscrita no CNPJ sob o nº <strong>$cnpj</strong>, sita à rua <strong>$endereco_empresa</strong>
     , doravante denominada CONCEDENTE, neste ato representada por <strong>$nome_representante</strong>, <strong>$cargo_representante</strong>, portador do CPF nº <strong>$cpf_representante</strong> e, de outro lado, 
     o(a) estudante <strong>$nome</strong>, RG nº <strong>$rg</strong>, residente à <strong>$logradouro, $numero, $bairro</strong>, na cidade de <strong>$cidade</strong>, doravante denominado ESTAGIÁRIO (A), aluno (a) regularmente matriculado (a) no Curso Superior de Tecnologia em Desenvolvimento de Software Multiplataforma da Faculdade de Tecnologia de Itapira – Fatec “Ogari de Castro Pacheco”, inscrita no CNPJ sob o nº 62.823.257/0278-05, localizada na cidade de Itapira, Estado de São Paulo, doravante denominada INSTITUIÇÃO DE ENSINO, na condição de interveniente, acordam e estabelecem entre si as cláusulas e condições que regerão este TERMO DE COMPROMISSO DE ESTÁGIO OBRIGATÓRIO NÃO REMUNERADO.
@@ -204,7 +207,7 @@ $html = "
     <br> <br> 
     
     
-    (NOME DO ESTAGIÁRIO)	CONCEDENTE DE ESTÁGIO (nome completo/ carimbo e assinatura)	CEETEPS
+    $nome <br><br><br>	$nome_representante (nome completo/ carimbo e assinatura) CEETEPS
     Prof. Me. Luiz Henrique Biazzoto
     Diretor da Faculdade de Tecnologia ”Ogari de Castro Pacheco”
     </p>
