@@ -24,9 +24,9 @@ if ($usuario_logado == null) {
     $_SESSION['id_usuario'] = $id_usuario; 
 
     if ($permissao == 'aluno') {
-        header("Location:../../index2.php");
+        header("Location:../dashboard-aluno/index.php");
     } elseif ($permissao == 'prof') {
-        header("Location:../../index3.php");
+        header("Location:../dashboard-professor/index.php");
     } else {
         header("Location:usuario-erro.php");
     }
