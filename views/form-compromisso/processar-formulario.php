@@ -4,19 +4,21 @@ use Dompdf\Dompdf;
 include "../../classes/Conexao.php";
 
 session_start();
-if (!isset($_SESSION['id_aluno'])) {
+if (!isset($_SESSION['id_usuario'])) {
     echo "Erro: ID do aluno não encontrado. Faça login novamente.";
     exit();
 }
 
-$id_aluno = $_SESSION['id_aluno'];
-$sql = "SELECT nome, rg, logradouro, numero, bairro, cidade FROM tb_alunos WHERE fk_id_usuario = :id_aluno";
+$id_usuario = $_SESSION['id_usuario'];
+$sql = "SELECT id_aluno, nome, rg, logradouro, numero, bairro, cidade FROM tb_alunos WHERE fk_id_usuario = :id_usuario"; 
 $stmt = $conexao->prepare($sql);
-$stmt->bindParam(':id_aluno', $id_aluno);
+$stmt->bindParam(':id_usuario', $id_usuario); 
 $stmt->execute();
 $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
 
+
 if ($resultado) {
+    $id_aluno = $resultado['id_aluno'];
     $nome = $resultado['nome'];
     $rg = $resultado['rg'];
     $logradouro = $resultado['logradouro'];
@@ -28,65 +30,83 @@ if ($resultado) {
     exit();
 }
 
-//Empresa
-$nome_empresa = $_POST['nome_empresa'];
-$cnpj = $_POST['cnpj'];
-$endereco_empresa = $_POST['endereco_empresa'];
 
-//Representante
-$nome_representante = $_POST['nome_representante'];
-$cargo_representante = $_POST['cargo_representante'];
-$cpf_representante = $_POST['cpf_representante'];
+    $nome_empresa = $_POST['nome_empresa'];
+    $cnpj = $_POST['cnpj'];
+    $endereco_empresa = $_POST['endereco_empresa'];
 
-//Estagio
-$horario_inicio = $_POST['horario_inicio'];
-$horario_termino = $_POST['horario_termino'];
-$inicio_intervalo = $_POST['inicio_intervalo'];
-$termino_intervalo = $_POST['termino_intervalo'];
-$total_horas = $_POST['total_horas'];
-$data_inicio = $_POST['data_inicio'];
-$data_termino = $_POST['data_termino'];
-$remunerado = $_POST['remunerado'];
-$salario = isset($_POST['salario']) ? $_POST['salario'] : 'N/A';
-$vale_transporte = $_POST['vale_transporte'];
-$vt = isset($_POST['vt']) ? $_POST['vt'] : 'N/A';
-$apolice = $_POST['apolice'];
-$seguradora = $_POST['seguradora'];
 
-$sql_empresa = "INSERT INTO tb_empresas (nome, cnpj, endereco) VALUES (:nome_empresa, :cnpj, :endereco_empresa)";
-$sql_representante = "INSERT INTO tb_representantes(nome, cpf, cargo) VALUES (:nome_representante, :cpf_representante, :cargo_representante)";
+    $nome_representante = $_POST['nome_representante'];
+    $cargo_representante = $_POST['cargo_representante'];
+    $cpf_representante = $_POST['cpf_representante'];
 
-$stmt_empresa = $conexao->prepare($sql_empresa);
-$stmt_representante = $conexao->prepare($sql_representante);
 
-$stmt_empresa->bindParam(':nome_empresa', $nome_empresa);
-$stmt_empresa->bindParam(':cnpj', $cnpj);
-$stmt_empresa->bindParam(':endereco_empresa', $endereco_empresa);
+    $horario_inicio = $_POST['horario_inicio'];
+    $horario_termino = $_POST['horario_termino'];
+    $inicio_intervalo = $_POST['inicio_intervalo'];
+    $termino_intervalo = $_POST['termino_intervalo'];
+    $total_horas = $_POST['total_horas'];
+    $data_inicio = $_POST['data_inicio'];
+    $data_termino = $_POST['data_termino'];
+    $remunerado = $_POST['remunerado'];
+    $salario = isset($_POST['salario']) ? $_POST['salario'] : 'N/A';
+    $vale_transporte = $_POST['vale_transporte'];
+    $vt = isset($_POST['vt']) ? $_POST['vt'] : 'N/A';
+    $apolice = $_POST['apolice'];
+    $seguradora = $_POST['seguradora'];
 
-$stmt_representante->bindParam(':nome_representante', $nome_representante);
-$stmt_representante->bindParam(':cpf_representante', $cpf_representante);
-$stmt_representante->bindParam(':cargo_representante', $cargo_representante);
 
-$sql_estagio = "INSERT INTO tb_estagios (horario_inicio, horario_termino, inicio_intervalo, termino_intervalo, total_horas, data_inicio, data_termino, salario, vt, apolice, seguradora) 
-                VALUES (:horario_inicio, :horario_termino, :inicio_intervalo, :termino_intervalo, :total_horas, :data_inicio, :data_termino, :salario, :vt, :apolice, :seguradora)";
+    try {
+        $conexao->beginTransaction();
+        
+        $sql_representante = "INSERT INTO tb_representantes(nome, cpf, cargo) VALUES (:nome_representante, :cpf_representante, :cargo_representante)";
+        $stmt_representante = $conexao->prepare($sql_representante);
+        $stmt_representante->bindParam(':nome_representante', $nome_representante);
+        $stmt_representante->bindParam(':cpf_representante', $cpf_representante);
+        $stmt_representante->bindParam(':cargo_representante', $cargo_representante);
+        $stmt_representante->execute();
+        $id_representante = $conexao->lastInsertId(); 
 
-$stmt_estagio = $conexao->prepare($sql_estagio);
+        
 
-$stmt_estagio->bindParam(':horario_inicio', $horario_inicio);
-$stmt_estagio->bindParam(':horario_termino', $horario_termino);
-$stmt_estagio->bindParam(':inicio_intervalo', $inicio_intervalo);
-$stmt_estagio->bindParam(':termino_intervalo', $termino_intervalo);
-$stmt_estagio->bindParam(':total_horas', $total_horas);
-$stmt_estagio->bindParam(':data_inicio', $data_inicio);
-$stmt_estagio->bindParam(':data_termino', $data_termino);
-$stmt_estagio->bindParam(':salario', $salario);
-$stmt_estagio->bindParam(':vt', $vt);
-$stmt_estagio->bindParam(':apolice', $apolice);
-$stmt_estagio->bindParam(':seguradora', $seguradora);
+        $sql_empresa = "INSERT INTO tb_empresas (nome, cnpj, endereco, fk_id_representante) VALUES (:nome_empresa, :cnpj, :endereco_empresa, :fk_id_representante)";
+        $stmt_empresa = $conexao->prepare($sql_empresa);
+        $stmt_empresa->bindParam(':nome_empresa', $nome_empresa);
+        $stmt_empresa->bindParam(':cnpj', $cnpj);
+        $stmt_empresa->bindParam(':endereco_empresa', $endereco_empresa);
+        $stmt_empresa->bindParam(':fk_id_representante', $id_representante);
+        $stmt_empresa->execute();
+        $id_empresa = $conexao->lastInsertId(); 
+        
+        
+         
+        $sql_estagio = "INSERT INTO tb_estagios (horario_inicio, horario_termino, inicio_intervalo, termino_intervalo, total_horas, data_inicio, data_termino, salario, vt, apolice, seguradora, fk_id_empresa, fk_id_aluno) 
+                        VALUES (:horario_inicio, :horario_termino, :inicio_intervalo, :termino_intervalo, :total_horas, :data_inicio, :data_termino, :salario, :vt, :apolice, :seguradora, :fk_id_empresa, :fk_id_aluno)";
+        $stmt_estagio = $conexao->prepare($sql_estagio);
+        $stmt_estagio->bindParam(':horario_inicio', $horario_inicio);
+        $stmt_estagio->bindParam(':horario_termino', $horario_termino);
+        $stmt_estagio->bindParam(':inicio_intervalo', $inicio_intervalo);
+        $stmt_estagio->bindParam(':termino_intervalo', $termino_intervalo);
+        $stmt_estagio->bindParam(':total_horas', $total_horas);
+        $stmt_estagio->bindParam(':data_inicio', $data_inicio);
+        $stmt_estagio->bindParam(':data_termino', $data_termino);
+        $stmt_estagio->bindParam(':salario', $salario);
+        $stmt_estagio->bindParam(':vt', $vt);
+        $stmt_estagio->bindParam(':apolice', $apolice);
+        $stmt_estagio->bindParam(':seguradora', $seguradora);
+        $stmt_estagio->bindParam(':fk_id_empresa', $id_empresa);
+        $stmt_estagio->bindParam(':fk_id_aluno', $id_aluno); 
+        $stmt_estagio->execute();
 
-$stmt_empresa->execute();
-$stmt_representante->execute();
-$stmt_estagio->execute();
+    
+        $conexao->commit();
+    } catch (Exception $e) {
+        $conexao->rollBack();
+        error_log("Falha: " . $e->getMessage()); 
+        echo "Falha: " . $e->getMessage(); 
+        exit(); 
+    }
+
 
 
 $html = "
@@ -203,7 +223,7 @@ $html = "
     
      CLÁUSULA DÉCIMA PRIMEIRA. As partes elegem o Foro da Comarca de Itapira-SP, com expressa renúncia de outro, por mais privilegiado que seja para dirimir qualquer questão emergente do presente Termo de Compromisso.
     Por estarem de inteiro e comum acordo com as condições e dizeres deste instrumento, as partes assinam-no em 3 (três) vias de igual teor e forma, todas assinadas pelas partes, depois de lido, conferido e achado conforme em todos os seus termos.
-    CIDADE, XX de XXXXX de 20XX. 
+    (cidade) ________________, ___ de ______ de 20___. 
     <br> <br> 
     
     

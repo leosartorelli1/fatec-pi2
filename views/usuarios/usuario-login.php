@@ -12,7 +12,7 @@ $stmt->execute();
 
 $linha = $stmt->fetch(PDO::FETCH_ASSOC);
 $usuario_logado = $linha['usuario'];
-$id_aluno = $linha['id_usuario']; 
+$id_usuario = $linha['id_usuario']; 
 $permissao = $linha['permissao'];
 
 if ($usuario_logado == null) {
@@ -21,7 +21,7 @@ if ($usuario_logado == null) {
 } else {
     session_start();
     $_SESSION['usuario_logado'] = $usuario_logado;
-    $_SESSION['id_aluno'] = $id_aluno; 
+    $_SESSION['id_usuario'] = $id_usuario; 
 
     if ($permissao == 'aluno') {
         header("Location:../../index2.php");

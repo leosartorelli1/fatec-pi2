@@ -36,6 +36,23 @@ if ($resultado) {
     exit();
 }
 
+$departamento = $_POST['departamento'];
+$telefone = $_POST['telefone'];
+$email = $_POST['email'];
+$site = $_POST['site'];
+$cep = $_POST['cep'];
+$cidade = $_POST['cidade'];
+$estado = $_POST['estado'];
+$contato_representante = $_POST['contato-representante'];
+$obrigatoriedade = $_POST['obrigatoriedade'];
+$data_inicio_atividade = $_POST['data_inicio'];
+$data_termino_atividade = $_POST['data_termino'];
+$atividade = $_POST['atividade'];
+$descricao = $_POST['descricao'];
+$resultado = $_POST['resultado'];
+$periodo = $_POST['periodo'];
+$data_definida = $_POST['data_definida'];
+
 
 $html = "
 <html>
@@ -72,15 +89,17 @@ $html = "
 
     <br><br>
     Classificação:
-                <br><br>(   ) obrigatório (  ) não obrigatório	
+                <br><br> $obrigatoriedade
                 <br><br>Período previsto de realização:
                 <br><br>Início:___/___/____ Término: ___/___/____
 
-                <br><br>Valor mensal da bolsa estágio (R$)	Período real de execução:
-                <br><br>Início:___/___/____ Término: ___/___/____
+                <br><br>Valor mensal da bolsa estágio (R$)	
+                <br><br> Período real de execução:
+                <br>Início: $data_inicio_atividade Término: $data_termino_atividade
 
                 <br><br>Horário:
-                <br><br>De segunda a sexta, das _________ h às _________ h, aos sábados, das _________ h às  ________ h.
+                <br><br>De segunda a sexta, das _________ h às _________ h.
+
                 Cronograma (escreva a seguir as atividades que serão desenvolvidas no estágio. 
                 <br><br>
                 <br><br>Explique cada uma resumidamente e inclua linhas, se necessário): 
