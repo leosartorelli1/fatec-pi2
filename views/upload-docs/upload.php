@@ -30,7 +30,7 @@ if (isset($_POST['submit'])) {
             echo "O arquivo ". htmlspecialchars(basename($_FILES["file"]["name"])) . " foi enviado com sucesso.";
             
          
-            $sql = "INSERT INTO tb_arquivos (file_path) VALUES (:file_path)";
+            $sql = "INSERT INTO tb_estagios (file_path) VALUES (:file_path)";
             $stmt = $conexao->prepare($sql);
             $stmt->bindParam(':file_path', $target_file);
 

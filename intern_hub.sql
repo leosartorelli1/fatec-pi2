@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 11/06/2024 às 05:41
+-- Tempo de geração: 12/06/2024 às 00:33
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
@@ -92,6 +92,7 @@ CREATE TABLE `tb_estagios` (
   `vt` varchar(255) DEFAULT NULL,
   `apolice` varchar(255) DEFAULT NULL,
   `seguradora` varchar(255) DEFAULT NULL,
+  `file_path` varchar(512) NOT NULL,
   `fk_id_aluno` int(11) DEFAULT NULL,
   `fk_id_empresa` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -100,8 +101,8 @@ CREATE TABLE `tb_estagios` (
 -- Despejando dados para a tabela `tb_estagios`
 --
 
-INSERT INTO `tb_estagios` (`id_estagio`, `horario_inicio`, `horario_termino`, `inicio_intervalo`, `termino_intervalo`, `total_horas`, `data_inicio`, `data_termino`, `salario`, `vt`, `apolice`, `seguradora`, `fk_id_aluno`, `fk_id_empresa`) VALUES
-(4, '08:00', '16:00', '11:00', '13:00', '44', '2024-05-01', '2024-12-01', '1500', '', '121231231321', 'Porto', 1, 3);
+INSERT INTO `tb_estagios` (`id_estagio`, `horario_inicio`, `horario_termino`, `inicio_intervalo`, `termino_intervalo`, `total_horas`, `data_inicio`, `data_termino`, `salario`, `vt`, `apolice`, `seguradora`, `file_path`, `fk_id_aluno`, `fk_id_empresa`) VALUES
+(4, '08:00', '16:00', '11:00', '13:00', '44', '2024-05-01', '2024-12-01', '1500', '', '121231231321', 'Porto', '', 1, 3);
 
 -- --------------------------------------------------------
 
@@ -196,19 +197,19 @@ ALTER TABLE `tb_alunos`
 -- AUTO_INCREMENT de tabela `tb_empresas`
 --
 ALTER TABLE `tb_empresas`
-  MODIFY `id_empresa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_empresa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de tabela `tb_estagios`
 --
 ALTER TABLE `tb_estagios`
-  MODIFY `id_estagio` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_estagio` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de tabela `tb_representantes`
 --
 ALTER TABLE `tb_representantes`
-  MODIFY `id_representante` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id_representante` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT de tabela `tb_usuarios`

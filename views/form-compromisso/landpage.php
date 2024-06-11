@@ -1,5 +1,5 @@
 <?php 
-    include "../../../classes/Conexao.php";
+    include "../../classes/Conexao.php";
 ?>
 
 <!DOCTYPE html>
