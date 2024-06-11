@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 11/06/2024 às 05:13
+-- Tempo de geração: 11/06/2024 às 05:41
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
@@ -141,7 +141,8 @@ CREATE TABLE `tb_usuarios` (
 --
 
 INSERT INTO `tb_usuarios` (`id_usuario`, `usuario`, `senha`, `permissao`) VALUES
-(1, 'leonardo', '1234', 'aluno');
+(1, 'leonardo', '1234', 'aluno'),
+(2, 'joao', '1234', 'prof');
 
 --
 -- Índices para tabelas despejadas
@@ -213,7 +214,7 @@ ALTER TABLE `tb_representantes`
 -- AUTO_INCREMENT de tabela `tb_usuarios`
 --
 ALTER TABLE `tb_usuarios`
-  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Restrições para tabelas despejadas
