@@ -4,19 +4,21 @@ use Dompdf\Dompdf;
 include "../../classes/Conexao.php";
 
 session_start();
-if (!isset($_SESSION['id_aluno'])) {
+if (!isset($_SESSION['id_usuario'])) {
     echo "Erro: ID do aluno não encontrado. Faça login novamente.";
     exit();
 }
 
-$id_aluno = $_SESSION['id_aluno'];
-$sql = "SELECT nome, rg, ra, telefone, logradouro, numero, bairro, cep, cidade, estado , curso, semestre, email FROM tb_alunos WHERE fk_id_usuario = :id_aluno";
+//Dados do aluno 
+$id_usuario = $_SESSION['id_usuario'];
+$sql = "SELECT id_aluno, nome, rg, ra, telefone, logradouro, numero, bairro, cidade, cep, curso, semestre, estado, email FROM tb_alunos WHERE fk_id_usuario = :id_usuario"; 
 $stmt = $conexao->prepare($sql);
-$stmt->bindParam(':id_aluno', $id_aluno);
+$stmt->bindParam(':id_usuario', $id_usuario); 
 $stmt->execute();
 $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
 
 if ($resultado) {
+    $id_aluno = $resultado['id_aluno'];
     $nome = $resultado['nome'];
     $rg = $resultado['rg'];
     $ra = $resultado['ra'];
@@ -30,12 +32,42 @@ if ($resultado) {
     $semestre = $resultado['semestre'];
     $estado = $resultado['estado'];
     $email = $resultado['email'];
-
 } else {
-    echo "Nenhum dado encontrado para o ID fornecido.";
+    echo "Nenhum dado de aluno encontrado para o ID fornecido.";
     exit();
 }
 
+//Dados do estágio 
+$sql_estagio = "SELECT id_estagio, horario_inicio, horario_termino, inicio_intervalo, termino_intervalo, total_horas, data_inicio, data_termino, salario, apolice, seguradora FROM tb_estagios WHERE fk_id_aluno = :id_aluno"; 
+$stmt_estagio = $conexao->prepare($sql_estagio);
+$stmt_estagio->bindParam(':id_aluno', $id_aluno); 
+$stmt_estagio->execute();
+$resultado_estagio = $stmt_estagio->fetch(PDO::FETCH_ASSOC);
+
+if ($resultado_estagio) {
+    $id_estagio = $resultado_estagio['id_estagio'];
+    $horario_inicio = $resultado_estagio['horario_inicio'];
+    $horario_termino = $resultado_estagio['horario_termino'];
+    $inicio_intervalo = $resultado_estagio['inicio_intervalo'];
+    $termino_intervalo = $resultado_estagio['termino_intervalo'];
+    $total_horas = $resultado_estagio['total_horas'];
+    $data_inicio = $resultado_estagio['data_inicio'];
+    $data_termino = $resultado_estagio['data_termino'];
+    $salario = $resultado_estagio['salario'];
+    $apolice = $resultado_estagio['apolice'];
+    $seguradora = $resultado_estagio['seguradora'];
+} else {
+    echo "Nenhum dado de estágio encontrado para o ID fornecido.";
+    exit();
+}
+
+//Dados da empresa
+
+//Dados do representante 
+
+
+
+//Dados coletados do formulário
 $departamento = $_POST['departamento'];
 $telefone = $_POST['telefone'];
 $email = $_POST['email'];

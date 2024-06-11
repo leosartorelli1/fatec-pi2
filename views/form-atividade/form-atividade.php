@@ -4,7 +4,7 @@
     <title>Formulário de Estágio</title>
 </head>
 <body>
-    <form action="process_form.php" method="POST">
+    <form action="processar-atividade.php" method="POST">
         <label for="departamento">Departamento de Estágio:</label>
         <input type="text" id="departamento" name="departamento" required>
 
@@ -25,6 +25,8 @@
 
         <label for="estado">Estado:</label>
         <input type="text" id="estado" name="estado">
+
+        
 
         <h2>Dados do representante da Empresa:</h2>
         
@@ -56,7 +58,7 @@
         <input type="text" id="resultado" name="resultado">
 
         <label for="periodo">Período previsto (início e término):</label>
-        <input type="text" id="periodo" name="periodo">
+        <input type="date" id="periodo" name="periodo">
 
         <label for="data_definida">DECLARAÇÃO: plano definido em</label>
         <input type="date" id="data_definida" name="data_definida" required>

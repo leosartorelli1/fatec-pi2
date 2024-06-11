@@ -1,7 +1,7 @@
 <?php
-require '../../dompdf/vendor/autoload.php';
+require '../../../dompdf/vendor/autoload.php';
 use Dompdf\Dompdf;
-include "../../classes/Conexao.php";
+include "../../../classes/Conexao.php";
 
 session_start();
 if (!isset($_SESSION['id_usuario'])) {
@@ -48,10 +48,6 @@ if ($resultado) {
     $total_horas = $_POST['total_horas'];
     $data_inicio = $_POST['data_inicio'];
     $data_termino = $_POST['data_termino'];
-    $remunerado = $_POST['remunerado'];
-    $salario = isset($_POST['salario']) ? $_POST['salario'] : 'N/A';
-    $vale_transporte = $_POST['vale_transporte'];
-    $vt = isset($_POST['vt']) ? $_POST['vt'] : 'N/A';
     $apolice = $_POST['apolice'];
     $seguradora = $_POST['seguradora'];
 
@@ -80,8 +76,8 @@ if ($resultado) {
         
         
          
-        $sql_estagio = "INSERT INTO tb_estagios (horario_inicio, horario_termino, inicio_intervalo, termino_intervalo, total_horas, data_inicio, data_termino, salario, vt, apolice, seguradora, fk_id_empresa, fk_id_aluno) 
-                        VALUES (:horario_inicio, :horario_termino, :inicio_intervalo, :termino_intervalo, :total_horas, :data_inicio, :data_termino, :salario, :vt, :apolice, :seguradora, :fk_id_empresa, :fk_id_aluno)";
+        $sql_estagio = "INSERT INTO tb_estagios (horario_inicio, horario_termino, inicio_intervalo, termino_intervalo, total_horas, data_inicio, data_termino, apolice, seguradora, fk_id_empresa, fk_id_aluno) 
+                        VALUES (:horario_inicio, :horario_termino, :inicio_intervalo, :termino_intervalo, :total_horas, :data_inicio, :data_termino , :apolice, :seguradora, :fk_id_empresa, :fk_id_aluno)";
         $stmt_estagio = $conexao->prepare($sql_estagio);
         $stmt_estagio->bindParam(':horario_inicio', $horario_inicio);
         $stmt_estagio->bindParam(':horario_termino', $horario_termino);
@@ -90,8 +86,6 @@ if ($resultado) {
         $stmt_estagio->bindParam(':total_horas', $total_horas);
         $stmt_estagio->bindParam(':data_inicio', $data_inicio);
         $stmt_estagio->bindParam(':data_termino', $data_termino);
-        $stmt_estagio->bindParam(':salario', $salario);
-        $stmt_estagio->bindParam(':vt', $vt);
         $stmt_estagio->bindParam(':apolice', $apolice);
         $stmt_estagio->bindParam(':seguradora', $seguradora);
         $stmt_estagio->bindParam(':fk_id_empresa', $id_empresa);
@@ -146,7 +140,7 @@ $html = "
     <br>
     III- Este Termo de Compromisso terá vigência de <strong>$data_inicio</strong> a <strong>$data_termino</strong>, podendo ser denunciado a qualquer tempo, por qualquer das três partes envolvidas, unilateralmente, mediante comunicação escrita, com antecedência mínima de 5 (cinco) dias; 
     <br>
-    IV -     O (A) Estagiário (a) receberá da concedente durante o período de estágio, uma bolsa no valor de <strong>R$ $salario</strong> e auxílio transporte, conforme acordado entre as partes;  
+    IV- A vigência deste Termo de Compromisso de Estágio está vinculada à carga horária de Estágio do Projeto Pedagógico do Curso Superior de Tecnologia em que o (a) aluno (a) está regularmente matriculado (a);
     <br>
     V - Nos períodos em que a instituição de ensino adotar verificações de aprendizagem periódica ou final, a carga horária do estágio será reduzida pelo menos à metade para garantir o bom desempenho do estudante, conforme o art. 10, § 2º da Lei de Estágio;
     <br>

@@ -1,5 +1,9 @@
+<?php
+    require "../usuarios/usuario-verifica.php";
+?>
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,9 +23,9 @@
             <nav>
                 <ul>
                     <li><a href="#">Home</a></li>
-                    <li><a href="../form-compromisso/form-compromisso.php">Termo de Compromisso</a></li>
-                    <li><a href="../form-atividade/form-atividade.php">Plano de Atividades</a></li>
-                    <li><a href="#">Relatórios de Estágio</a></li>
+                    <li><a href="../form-compromisso/landpage.php">Cadastrar Estagio</a></li>
+                    <li><a href="#">Acompanhar Estagio</a></li>
+                    <li><a href="#">Encerrar Estágio</a></li>
                     <li><a href="#">Instruções de Estágio</a></li>
                 </ul>
             </nav>
