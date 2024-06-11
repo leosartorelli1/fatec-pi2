@@ -25,8 +25,8 @@
                     <li><a href="#">Home</a></li>
                     <li><a href="../form-compromisso/landpage.php">Cadastrar Estagio</a></li>
                     <li><a href="#">Acompanhar Estagio</a></li>
-                    <li><a href="#">Encerrar Estágio</a></li>
-                    <li><a href="#">Instruções de Estágio</a></li>
+                    <li><a href="../relatorio-final/index.php">Encerrar Estágio</a></li>
+                    <li><a href="../relatorio-parcial/index.php">Relatório Parcial</a></li>
                 </ul>
             </nav>
         </div>

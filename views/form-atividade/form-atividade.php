@@ -5,6 +5,8 @@
 </head>
 <body>
     <form action="processar-atividade.php" method="POST">
+
+        <h2>Dados da empresa</h2>
         <label for="departamento">Departamento de Estágio:</label>
         <input type="text" id="departamento" name="departamento" required>
 
@@ -39,8 +41,7 @@
             <option value="nao_obrigatorio">Não obrigatório</option>
             <option value="obrigatorio">Obrigatório</option>
         </select>
-        
-        <h3>Período real de execução: </h3>
+    
         <h3>Data de Vigência do Estágio</h3>
         <label for="data_inicio">Data de início:</label>
         <input type="date" id="data_inicio" name="data_inicio" required>
@@ -48,17 +49,21 @@
         <label for="data_termino">Data de término:</label>
         <input type="date" id="data_termino" name="data_termino" required>
 
+    
+        <h3>Tabela de atividades</h3>
         <label for="atividade">Atividade:</label>
-        <input type="text" id="atividade" name="atividade">
+        <input type="textarea" id="atividade" name="atividade">
 
         <label for="descricao">Descrição da atividade:</label>
-        <input type="text" id="descricao" name="descricao">
+        <input type="textarea" id="descricao" name="descricao">
 
         <label for="resultado">Resultado ou objetivo esperado:</label>
-        <input type="text" id="resultado" name="resultado">
+        <input type="textarea" id="resultado" name="resultado">
 
         <label for="periodo">Período previsto (início e término):</label>
         <input type="date" id="periodo" name="periodo">
+
+        <h3>Declaracao</h3>
 
         <label for="data_definida">DECLARAÇÃO: plano definido em</label>
         <input type="date" id="data_definida" name="data_definida" required>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 12/06/2024 às 00:33
+-- Tempo de geração: 12/06/2024 às 01:29
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
@@ -89,7 +89,6 @@ CREATE TABLE `tb_estagios` (
   `data_inicio` varchar(255) DEFAULT NULL,
   `data_termino` varchar(255) DEFAULT NULL,
   `salario` varchar(255) DEFAULT NULL,
-  `vt` varchar(255) DEFAULT NULL,
   `apolice` varchar(255) DEFAULT NULL,
   `seguradora` varchar(255) DEFAULT NULL,
   `file_path` varchar(512) NOT NULL,
@@ -101,8 +100,8 @@ CREATE TABLE `tb_estagios` (
 -- Despejando dados para a tabela `tb_estagios`
 --
 
-INSERT INTO `tb_estagios` (`id_estagio`, `horario_inicio`, `horario_termino`, `inicio_intervalo`, `termino_intervalo`, `total_horas`, `data_inicio`, `data_termino`, `salario`, `vt`, `apolice`, `seguradora`, `file_path`, `fk_id_aluno`, `fk_id_empresa`) VALUES
-(4, '08:00', '16:00', '11:00', '13:00', '44', '2024-05-01', '2024-12-01', '1500', '', '121231231321', 'Porto', '', 1, 3);
+INSERT INTO `tb_estagios` (`id_estagio`, `horario_inicio`, `horario_termino`, `inicio_intervalo`, `termino_intervalo`, `total_horas`, `data_inicio`, `data_termino`, `salario`, `apolice`, `seguradora`, `file_path`, `fk_id_aluno`, `fk_id_empresa`) VALUES
+(4, '08:00', '16:00', '11:00', '13:00', '44', '2024-05-01', '2024-12-01', '1500', '121231231321', 'Porto', '', 1, 3);
 
 -- --------------------------------------------------------
 

@@ -38,7 +38,7 @@ if ($resultado) {
 }
 
 //Dados do estágio 
-$sql_estagio = "SELECT id_estagio, horario_inicio, horario_termino, inicio_intervalo, termino_intervalo, total_horas, data_inicio, data_termino, salario, apolice, seguradora FROM tb_estagios WHERE fk_id_aluno = :id_aluno"; 
+$sql_estagio = "SELECT id_estagio, horario_inicio, horario_termino, inicio_intervalo, termino_intervalo, total_horas, data_inicio, data_termino, salario, apolice, seguradora, fk_id_empresa FROM tb_estagios WHERE fk_id_aluno = :id_aluno"; 
 $stmt_estagio = $conexao->prepare($sql_estagio);
 $stmt_estagio->bindParam(':id_aluno', $id_aluno); 
 $stmt_estagio->execute();
@@ -56,35 +56,73 @@ if ($resultado_estagio) {
     $salario = $resultado_estagio['salario'];
     $apolice = $resultado_estagio['apolice'];
     $seguradora = $resultado_estagio['seguradora'];
+    $fk_id_empresa = $resultado_estagio['fk_id_empresa'];
+
 } else {
     echo "Nenhum dado de estágio encontrado para o ID fornecido.";
     exit();
 }
 
 //Dados da empresa
+$sql_empresa = "SELECT fk_id_representante, nome, cnpj, endereco FROM tb_empresas WHERE id_empresa = :fk_id_empresa"; 
+$stmt_empresa = $conexao->prepare($sql_empresa);
+$stmt_empresa->bindParam(':fk_id_empresa', $fk_id_empresa); 
+$stmt_empresa->execute();
+$resultado_empresa = $stmt_empresa->fetch(PDO::FETCH_ASSOC);
 
+if ($resultado_empresa) {
+
+    $fk_id_representante = $resultado_empresa['fk_id_representante'];
+    $nome_empresa = $resultado_empresa['nome'];
+    $cnpj = $resultado_empresa['cnpj'];
+    $endereco_empresa = $resultado_empresa['endereco'];
+} else {
+    echo "Nenhum dado de estágio encontrado para o ID fornecido.";
+    exit();
+}
 
 //Dados do representante 
 
+$sql_representante = "SELECT nome, cpf, cargo FROM tb_representantes WHERE id_representante = :fk_id_representante"; 
+$stmt_representante = $conexao->prepare($sql_representante);
+$stmt_representante->bindParam(':fk_id_representante', $fk_id_representante); 
+$stmt_representante->execute();
+$resultado_representante = $stmt_representante->fetch(PDO::FETCH_ASSOC);
 
+if ($resultado_representante) {
+
+    $nome_representante = $resultado_representante['nome'];
+    $cpf = $resultado_representante['cpf'];
+    $cargo = $resultado_representante['cargo'];
+} else {
+    echo "Nenhum dado de estágio encontrado para o ID fornecido.";
+    exit();
+}
 
 
 //Dados coletados do formulário
+
+//Dados da empresa 
 $departamento = $_POST['departamento'];
-$telefone = $_POST['telefone'];
-$email = $_POST['email'];
+$telefone_empresa = $_POST['telefone'];
+$email_empresa = $_POST['email'];
 $site = $_POST['site'];
 $cep = $_POST['cep'];
 $cidade = $_POST['cidade'];
 $estado = $_POST['estado'];
+
+//Dados do representante 
 $contato_representante = $_POST['contato-representante'];
+
+//Dados do estagio
+
 $obrigatoriedade = $_POST['obrigatoriedade'];
 $data_inicio_atividade = $_POST['data_inicio'];
 $data_termino_atividade = $_POST['data_termino'];
-$atividade = $_POST['atividade'];
-$descricao = $_POST['descricao'];
-$resultado = $_POST['resultado'];
-$periodo = $_POST['periodo'];
+$atividade_estagio = $_POST['atividade'];
+$descricao_estagio = $_POST['descricao'];
+$resultado_esperado = $_POST['resultado'];
+$periodo_estagio = $_POST['periodo'];
 $data_definida = $_POST['data_definida'];
 
 
@@ -106,7 +144,7 @@ $html = "
 
     <strong>Identificação da Empresa </strong>
 
-    <br><br><strong>Nome da Empresa :</strong>
+    <br><br><strong>Nome da Empresa :</strong> 
     <br><br><strong>Divisão ou departamento de aplicação do estágio  :</strong>
     <br><br><strong>Endereço :</strong>
     <br><br><strong>Bairro :</strong>
