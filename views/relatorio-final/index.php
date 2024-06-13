@@ -11,6 +11,14 @@
 
     <p>Clique no botão abaixo para preencher o relatório</p>
     <a href="relatorio.php">Clique aqui</a>
+
+    <h3>Upload do relatorio preenchido e assinado :</h3>
+
+<form action="../upload-docs/upload-final.php" method="post" enctype="multipart/form-data">
+        <label for="file">Selecione um arquivo PDF:</label>
+        <input type="file" name="file" id="file" accept="application/pdf" required>
+        <input type="submit" name="submit" value="Upload">
+    </form>
     
 </body>
 </html>

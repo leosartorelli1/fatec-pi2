@@ -22,13 +22,26 @@
 
 <a href="../form-atividade/form-atividade.php">Plano de atividades</a>
 
-<h2>Agora que você já completou todos os passos, basta fazer o upload dos arquivos!</h2>
+<h2>Após o preenchimento dos formulários e assinar, basta enviar os arquivos</h2>
 
-<form action="../upload-docs/upload.php" method="post" enctype="multipart/form-data">
+<h3>Termo de compromisso :</h3>
+
+<form action="../upload-docs/upload-termo.php" method="post" enctype="multipart/form-data">
         <label for="file">Selecione um arquivo PDF:</label>
         <input type="file" name="file" id="file" accept="application/pdf" required>
         <input type="submit" name="submit" value="Upload">
     </form>
+
+
+<h3>Plano de atividades :</h3>
+
+<form action="../upload-docs/upload-plano.php" method="post" enctype="multipart/form-data">
+        <label for="file">Selecione um arquivo PDF:</label>
+        <input type="file" name="file" id="file" accept="application/pdf" required>
+        <input type="submit" name="submit" value="Upload">
+    </form>
+
+
 
 
 
