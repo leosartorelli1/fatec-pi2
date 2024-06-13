@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 12/06/2024 às 01:29
+-- Tempo de geração: 14/06/2024 às 01:33
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
@@ -50,7 +50,34 @@ CREATE TABLE `tb_alunos` (
 --
 
 INSERT INTO `tb_alunos` (`id_aluno`, `fk_id_usuario`, `nome`, `rg`, `ra`, `telefone`, `logradouro`, `numero`, `bairro`, `cidade`, `estado`, `cep`, `curso`, `semestre`, `email`) VALUES
-(1, 1, 'Leonardo Sartorelli', '12.345.678-9', '2781392323005', '(19) 99999-9999', 'Rua dos Periquitos ', '370', 'Recanto dos Passaros', 'ITAPIRA ', 'São Paulo', '13970-000', 'Desenvolvimento de Software Multiplataforma ', '1 Semestre', 'leonardo.sartorelli@fatec.sp.gov.br\r\n');
+(1, 1, 'Leonardo Sartorelli', '12.345.678-9', '2781392323005', '(19) 99999-9999', 'Rua dos Periquitos ', '370', 'Recanto dos Passaros', 'ITAPIRA ', 'São Paulo', '13970-000', 'Desenvolvimento de Software Multiplataforma ', '1 Semestre', 'leonardo.sartorelli@fatec.sp.gov.br\r\n'),
+(2, 3, 'Jorge', '', '', '', '', '', '', '', '', '', '', '', '');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `tb_arquivos`
+--
+
+CREATE TABLE `tb_arquivos` (
+  `id_arquivos` int(11) NOT NULL,
+  `fk_id_aluno` int(11) NOT NULL,
+  `termo_compromisso` varchar(512) NOT NULL,
+  `caminho_compromisso` varchar(512) NOT NULL,
+  `plano_atividades` varchar(512) NOT NULL,
+  `caminho_atividades` varchar(512) NOT NULL,
+  `relatorio_parcial` varchar(512) NOT NULL,
+  `caminho_parcial` varchar(512) NOT NULL,
+  `relatorio_final` varchar(512) NOT NULL,
+  `caminho_final` varchar(512) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Despejando dados para a tabela `tb_arquivos`
+--
+
+INSERT INTO `tb_arquivos` (`id_arquivos`, `fk_id_aluno`, `termo_compromisso`, `caminho_compromisso`, `plano_atividades`, `caminho_atividades`, `relatorio_parcial`, `caminho_parcial`, `relatorio_final`, `caminho_final`) VALUES
+(27, 1, '666b7fd6eb0b71.90227323.pdf', 'termo-de-compromisso/666b7fd6eb0b71.90227323.pdf', '', '', '', '', '', '');
 
 -- --------------------------------------------------------
 
@@ -142,7 +169,8 @@ CREATE TABLE `tb_usuarios` (
 
 INSERT INTO `tb_usuarios` (`id_usuario`, `usuario`, `senha`, `permissao`) VALUES
 (1, 'leonardo', '1234', 'aluno'),
-(2, 'joao', '1234', 'prof');
+(2, 'joao', '1234', 'prof'),
+(3, 'jorge', '1234', 'aluno');
 
 --
 -- Índices para tabelas despejadas
@@ -154,6 +182,13 @@ INSERT INTO `tb_usuarios` (`id_usuario`, `usuario`, `senha`, `permissao`) VALUES
 ALTER TABLE `tb_alunos`
   ADD PRIMARY KEY (`id_aluno`),
   ADD KEY `fk_id_usuario` (`fk_id_usuario`);
+
+--
+-- Índices de tabela `tb_arquivos`
+--
+ALTER TABLE `tb_arquivos`
+  ADD PRIMARY KEY (`id_arquivos`),
+  ADD KEY `fk_id_aluno` (`fk_id_aluno`);
 
 --
 -- Índices de tabela `tb_empresas`
@@ -190,7 +225,13 @@ ALTER TABLE `tb_usuarios`
 -- AUTO_INCREMENT de tabela `tb_alunos`
 --
 ALTER TABLE `tb_alunos`
-  MODIFY `id_aluno` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_aluno` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT de tabela `tb_arquivos`
+--
+ALTER TABLE `tb_arquivos`
+  MODIFY `id_arquivos` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT de tabela `tb_empresas`
@@ -214,7 +255,7 @@ ALTER TABLE `tb_representantes`
 -- AUTO_INCREMENT de tabela `tb_usuarios`
 --
 ALTER TABLE `tb_usuarios`
-  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Restrições para tabelas despejadas
@@ -225,6 +266,12 @@ ALTER TABLE `tb_usuarios`
 --
 ALTER TABLE `tb_alunos`
   ADD CONSTRAINT `tb_alunos_ibfk_1` FOREIGN KEY (`fk_id_usuario`) REFERENCES `tb_usuarios` (`id_usuario`);
+
+--
+-- Restrições para tabelas `tb_arquivos`
+--
+ALTER TABLE `tb_arquivos`
+  ADD CONSTRAINT `fk_id_aluno` FOREIGN KEY (`fk_id_aluno`) REFERENCES `tb_alunos` (`id_aluno`);
 
 --
 -- Restrições para tabelas `tb_empresas`
