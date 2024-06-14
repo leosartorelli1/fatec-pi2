@@ -1,6 +1,30 @@
 <?php
     require "../usuarios/usuario-verifica.php";
-?>
+    
+    include "../../classes/Conexao.php";
+
+if (!isset($_SESSION['id_usuario'])) {
+    echo "Erro: ID do aluno não encontrado. Faça login novamente.";
+    exit();
+}
+
+$id_usuario = $_SESSION['id_usuario'];
+$sql = "SELECT id_aluno, nome FROM tb_alunos WHERE fk_id_usuario = :id_usuario"; 
+$stmt = $conexao->prepare($sql);
+$stmt->bindParam(':id_usuario', $id_usuario); 
+$stmt->execute();
+$resultado = $stmt->fetch(PDO::FETCH_ASSOC);
+
+
+if ($resultado) {
+    $id_aluno = $resultado['id_aluno'];
+    $nome = $resultado['nome'];
+} else {
+    echo "Nenhum dado encontrado para o ID fornecido.";
+    exit();
+}
+    ?> 
+
 
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -32,12 +56,12 @@
         </div>
 
         <div>
-            <a href="#">Perfil</a>
+            <a href="../usuarios/usuario-logout.php">Logout</a>
         </div>
     </header>
 
     <div class="cps-principal">
-    <h2>Bem Vindo a Plataforma InternHub!</h2>
+    <h2>Olá, <strong><?php echo $nome; ?></strong>! Bem Vindo a Plataforma InternHub!</h2>
 
         <span class="divisor"></span>
 

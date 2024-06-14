@@ -11,9 +11,7 @@
 </head>
 <body>
 
-<h1>Olá, bem-vindo!</h1>
-
-<h2>O primeiro passo para cadastraro seu estágio é realizar o preenchimento do termo de compromisso abaixo :</h2>
+<h1>O primeiro passo para cadastraro seu estágio é realizar o preenchimento do termo de compromisso abaixo :</h1>
 
 <a href="remunerado/form-remunerado.php">Estágio Remunerado</a>
 <a href="nao-remunerado/form.php">Estágio Não Remunerado</a>

@@ -44,7 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['file'])) {
     if (move_uploaded_file($file['tmp_name'], $uploadFile)) {
         try {
             // Inserção na tabela tb_arquivos
-            $sql_insert = "INSERT INTO tb_arquivos (termo_compromisso, caminho_compromisso, fk_id_aluno) VALUES (:termo_compromisso, :caminho_compromisso, :id_aluno)";
+            $sql_insert = "INSERT INTO tb_compromisso (termo_compromisso, caminho_compromisso, fk_id_aluno, status) VALUES (:termo_compromisso, :caminho_compromisso, :id_aluno, 'pendente')";
             $stmt_insert = $conexao->prepare($sql_insert);
             $stmt_insert->bindParam(':id_aluno', $id_aluno);
             $stmt_insert->bindParam(':termo_compromisso', $uniqueId);

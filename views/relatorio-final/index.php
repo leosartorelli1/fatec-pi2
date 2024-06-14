@@ -6,7 +6,6 @@
     <title>Encerramento de estágio</title>
 </head>
 <body>
-    <h1>Bem-vindo</h1>
     <h3>Para cadastrar o encerramento do estágio, é necessário preencher o relatório final</h3>
 
     <p>Clique no botão abaixo para preencher o relatório</p>

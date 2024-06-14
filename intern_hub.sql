@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 14/06/2024 às 01:33
+-- Tempo de geração: 14/06/2024 às 04:06
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
@@ -56,28 +56,30 @@ INSERT INTO `tb_alunos` (`id_aluno`, `fk_id_usuario`, `nome`, `rg`, `ra`, `telef
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `tb_arquivos`
+-- Estrutura para tabela `tb_atividades`
 --
 
-CREATE TABLE `tb_arquivos` (
-  `id_arquivos` int(11) NOT NULL,
-  `fk_id_aluno` int(11) NOT NULL,
-  `termo_compromisso` varchar(512) NOT NULL,
-  `caminho_compromisso` varchar(512) NOT NULL,
-  `plano_atividades` varchar(512) NOT NULL,
-  `caminho_atividades` varchar(512) NOT NULL,
-  `relatorio_parcial` varchar(512) NOT NULL,
-  `caminho_parcial` varchar(512) NOT NULL,
-  `relatorio_final` varchar(512) NOT NULL,
-  `caminho_final` varchar(512) NOT NULL
+CREATE TABLE `tb_atividades` (
+  `id_atividades` int(11) NOT NULL,
+  `fk_id_aluno` int(11) DEFAULT NULL,
+  `plano_atividades` varchar(512) DEFAULT NULL,
+  `caminho_atividades` varchar(512) DEFAULT NULL,
+  `status` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+-- --------------------------------------------------------
+
 --
--- Despejando dados para a tabela `tb_arquivos`
+-- Estrutura para tabela `tb_compromisso`
 --
 
-INSERT INTO `tb_arquivos` (`id_arquivos`, `fk_id_aluno`, `termo_compromisso`, `caminho_compromisso`, `plano_atividades`, `caminho_atividades`, `relatorio_parcial`, `caminho_parcial`, `relatorio_final`, `caminho_final`) VALUES
-(27, 1, '666b7fd6eb0b71.90227323.pdf', 'termo-de-compromisso/666b7fd6eb0b71.90227323.pdf', '', '', '', '', '', '');
+CREATE TABLE `tb_compromisso` (
+  `id_compromisso` int(11) NOT NULL,
+  `fk_id_aluno` int(11) DEFAULT NULL,
+  `termo_compromisso` varchar(512) DEFAULT NULL,
+  `caminho_compromisso` varchar(512) DEFAULT NULL,
+  `status` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -133,6 +135,53 @@ INSERT INTO `tb_estagios` (`id_estagio`, `horario_inicio`, `horario_termino`, `i
 -- --------------------------------------------------------
 
 --
+-- Estrutura para tabela `tb_professores`
+--
+
+CREATE TABLE `tb_professores` (
+  `id_professor` int(11) NOT NULL,
+  `fk_id_usuario` int(11) DEFAULT NULL,
+  `nome_professor` varchar(256) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Despejando dados para a tabela `tb_professores`
+--
+
+INSERT INTO `tb_professores` (`id_professor`, `fk_id_usuario`, `nome_professor`) VALUES
+(1, 2, 'João Oliveira');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `tb_relatorio_final`
+--
+
+CREATE TABLE `tb_relatorio_final` (
+  `id_final` int(11) NOT NULL,
+  `fk_id_aluno` int(11) DEFAULT NULL,
+  `relatorio_final` varchar(512) DEFAULT NULL,
+  `caminho_final` varchar(512) DEFAULT NULL,
+  `status` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `tb_relatorio_parcial`
+--
+
+CREATE TABLE `tb_relatorio_parcial` (
+  `id_parcial` int(11) NOT NULL,
+  `fk_id_aluno` int(11) DEFAULT NULL,
+  `relatorio_parcial` varchar(512) DEFAULT NULL,
+  `caminho_parcial` varchar(512) DEFAULT NULL,
+  `status` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura para tabela `tb_representantes`
 --
 
@@ -184,10 +233,17 @@ ALTER TABLE `tb_alunos`
   ADD KEY `fk_id_usuario` (`fk_id_usuario`);
 
 --
--- Índices de tabela `tb_arquivos`
+-- Índices de tabela `tb_atividades`
 --
-ALTER TABLE `tb_arquivos`
-  ADD PRIMARY KEY (`id_arquivos`),
+ALTER TABLE `tb_atividades`
+  ADD PRIMARY KEY (`id_atividades`),
+  ADD KEY `fk_id_aluno` (`fk_id_aluno`);
+
+--
+-- Índices de tabela `tb_compromisso`
+--
+ALTER TABLE `tb_compromisso`
+  ADD PRIMARY KEY (`id_compromisso`),
   ADD KEY `fk_id_aluno` (`fk_id_aluno`);
 
 --
@@ -204,6 +260,27 @@ ALTER TABLE `tb_estagios`
   ADD PRIMARY KEY (`id_estagio`),
   ADD KEY `fk_id_aluno` (`fk_id_aluno`),
   ADD KEY `fk_id_empresa` (`fk_id_empresa`);
+
+--
+-- Índices de tabela `tb_professores`
+--
+ALTER TABLE `tb_professores`
+  ADD PRIMARY KEY (`id_professor`),
+  ADD KEY `fk_id_usuario` (`fk_id_usuario`);
+
+--
+-- Índices de tabela `tb_relatorio_final`
+--
+ALTER TABLE `tb_relatorio_final`
+  ADD PRIMARY KEY (`id_final`),
+  ADD KEY `fk_id_aluno` (`fk_id_aluno`);
+
+--
+-- Índices de tabela `tb_relatorio_parcial`
+--
+ALTER TABLE `tb_relatorio_parcial`
+  ADD PRIMARY KEY (`id_parcial`),
+  ADD KEY `fk_id_aluno` (`fk_id_aluno`);
 
 --
 -- Índices de tabela `tb_representantes`
@@ -228,10 +305,16 @@ ALTER TABLE `tb_alunos`
   MODIFY `id_aluno` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT de tabela `tb_arquivos`
+-- AUTO_INCREMENT de tabela `tb_atividades`
 --
-ALTER TABLE `tb_arquivos`
-  MODIFY `id_arquivos` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+ALTER TABLE `tb_atividades`
+  MODIFY `id_atividades` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT de tabela `tb_compromisso`
+--
+ALTER TABLE `tb_compromisso`
+  MODIFY `id_compromisso` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de tabela `tb_empresas`
@@ -244,6 +327,24 @@ ALTER TABLE `tb_empresas`
 --
 ALTER TABLE `tb_estagios`
   MODIFY `id_estagio` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT de tabela `tb_professores`
+--
+ALTER TABLE `tb_professores`
+  MODIFY `id_professor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT de tabela `tb_relatorio_final`
+--
+ALTER TABLE `tb_relatorio_final`
+  MODIFY `id_final` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT de tabela `tb_relatorio_parcial`
+--
+ALTER TABLE `tb_relatorio_parcial`
+  MODIFY `id_parcial` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de tabela `tb_representantes`
@@ -268,10 +369,16 @@ ALTER TABLE `tb_alunos`
   ADD CONSTRAINT `tb_alunos_ibfk_1` FOREIGN KEY (`fk_id_usuario`) REFERENCES `tb_usuarios` (`id_usuario`);
 
 --
--- Restrições para tabelas `tb_arquivos`
+-- Restrições para tabelas `tb_atividades`
 --
-ALTER TABLE `tb_arquivos`
-  ADD CONSTRAINT `fk_id_aluno` FOREIGN KEY (`fk_id_aluno`) REFERENCES `tb_alunos` (`id_aluno`);
+ALTER TABLE `tb_atividades`
+  ADD CONSTRAINT `tb_atividades_ibfk_1` FOREIGN KEY (`fk_id_aluno`) REFERENCES `tb_alunos` (`id_aluno`);
+
+--
+-- Restrições para tabelas `tb_compromisso`
+--
+ALTER TABLE `tb_compromisso`
+  ADD CONSTRAINT `tb_compromisso_ibfk_1` FOREIGN KEY (`fk_id_aluno`) REFERENCES `tb_alunos` (`id_aluno`);
 
 --
 -- Restrições para tabelas `tb_empresas`
@@ -285,6 +392,24 @@ ALTER TABLE `tb_empresas`
 ALTER TABLE `tb_estagios`
   ADD CONSTRAINT `tb_estagios_ibfk_1` FOREIGN KEY (`fk_id_aluno`) REFERENCES `tb_alunos` (`id_aluno`),
   ADD CONSTRAINT `tb_estagios_ibfk_2` FOREIGN KEY (`fk_id_empresa`) REFERENCES `tb_empresas` (`id_empresa`);
+
+--
+-- Restrições para tabelas `tb_professores`
+--
+ALTER TABLE `tb_professores`
+  ADD CONSTRAINT `tb_professores_ibfk_1` FOREIGN KEY (`fk_id_usuario`) REFERENCES `tb_usuarios` (`id_usuario`);
+
+--
+-- Restrições para tabelas `tb_relatorio_final`
+--
+ALTER TABLE `tb_relatorio_final`
+  ADD CONSTRAINT `tb_relatorio_final_ibfk_1` FOREIGN KEY (`fk_id_aluno`) REFERENCES `tb_alunos` (`id_aluno`);
+
+--
+-- Restrições para tabelas `tb_relatorio_parcial`
+--
+ALTER TABLE `tb_relatorio_parcial`
+  ADD CONSTRAINT `tb_relatorio_parcial_ibfk_1` FOREIGN KEY (`fk_id_aluno`) REFERENCES `tb_alunos` (`id_aluno`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
