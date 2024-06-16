@@ -25,7 +25,7 @@ try {
     $id_professor = $resultado_professor['id_professor'];
     $nome_professor = $resultado_professor['nome_professor'];
 
-    // Inclua o campo id_aluno em todas as consultas SQL
+    // Consulta para alunos com termo de compromisso pendente
     $sql_alunos_compromisso = "
         SELECT 
             a.id_aluno,
@@ -33,22 +33,39 @@ try {
             a.curso, 
             a.semestre, 
             c.termo_compromisso, 
-            c.caminho_compromisso,
-            at.plano_atividades, 
-            at.caminho_atividades
+            c.caminho_compromisso
         FROM 
             tb_alunos a
         LEFT JOIN 
             tb_compromisso c ON a.id_aluno = c.fk_id_aluno AND c.status = 'pendente'
-        LEFT JOIN 
-            tb_atividades at ON a.id_aluno = at.fk_id_aluno AND at.status = 'pendente'
         WHERE 
-            c.status = 'pendente' OR at.status = 'pendente'
+            c.status = 'pendente'
     ";
     $stmt_alunos_compromisso = $conexao->prepare($sql_alunos_compromisso);
     $stmt_alunos_compromisso->execute();
     $alunos_compromisso = $stmt_alunos_compromisso->fetchAll(PDO::FETCH_ASSOC);
 
+    // Consulta para alunos com plano de atividades pendente
+    $sql_alunos_atividades = "
+        SELECT 
+            a.id_aluno,
+            a.nome AS nome_aluno, 
+            a.curso, 
+            a.semestre, 
+            at.plano_atividades, 
+            at.caminho_atividades
+        FROM 
+            tb_alunos a
+        LEFT JOIN 
+            tb_atividades at ON a.id_aluno = at.fk_id_aluno AND at.status = 'pendente'
+        WHERE 
+            at.status = 'pendente'
+    ";
+    $stmt_alunos_atividades = $conexao->prepare($sql_alunos_atividades);
+    $stmt_alunos_atividades->execute();
+    $alunos_atividades = $stmt_alunos_atividades->fetchAll(PDO::FETCH_ASSOC);
+
+    // Consulta para alunos com relatório parcial pendente
     $sql_alunos_parcial = "
         SELECT 
             a.id_aluno,
@@ -68,6 +85,7 @@ try {
     $stmt_alunos_parcial->execute();
     $alunos_parcial = $stmt_alunos_parcial->fetchAll(PDO::FETCH_ASSOC);
 
+    // Consulta para alunos com relatório final pendente
     $sql_alunos_final = "
         SELECT 
             a.id_aluno,
@@ -93,8 +111,6 @@ try {
 }
 ?>
 
-
-
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -112,6 +128,9 @@ try {
             padding: 8px;
             text-align: center;
         }
+        .hidden {
+            display: none;
+        }
     </style>
     <script>
         function aprovar(id, tipo) {
@@ -120,10 +139,16 @@ try {
             }
         }
 
+        function mostrarCampoReprovar(id) {
+            document.getElementById('motivo-' + id).classList.toggle('hidden');
+        }
+
         function reprovar(id, tipo) {
-            let motivo = prompt("Digite o motivo da reprovação:");
+            let motivo = document.getElementById('motivo-texto-' + id).value;
             if (motivo) {
                 window.location.href = "reprovar.php?id=" + id + "&tipo=" + tipo + "&motivo=" + encodeURIComponent(motivo);
+            } else {
+                alert("Por favor, digite o motivo da reprovação.");
             }
         }
     </script>
@@ -131,9 +156,9 @@ try {
 <body>
     <h2>Olá, <span><?php echo htmlspecialchars($nome_professor); ?></span>! Bem-vindo à Plataforma InternHub!</h2>
 
-    <p>Nesta área, você pode verificar a documentação de início de estágio e também os relatórios parcial e final dos alunos</p>
+    <p>Nesta área, você pode verificar a documentação de início de estágio e também os relatórios parcial e final dos alunos.</p>
 
-    <h3>Alunos aguardando verificação da documentação de início de estágio:</h3>
+    <h3>Alunos aguardando verificação da documentação de termo de compromisso:</h3>
 
     <table>
         <thead>
@@ -142,7 +167,6 @@ try {
                 <th>Curso</th>
                 <th>Semestre</th>
                 <th>Termo de Compromisso</th>
-                <th>Plano de Atividades</th>
                 <th>Ações</th>
             </tr>
         </thead>
@@ -162,6 +186,37 @@ try {
                         <?php endif; ?>
                     </td>
                     <td>
+                        <button onclick="aprovar(<?php echo htmlspecialchars($aluno['id_aluno']); ?>, 'compromisso')">Aprovar</button>
+                        <button onclick="mostrarCampoReprovar(<?php echo htmlspecialchars($aluno['id_aluno']); ?>)">Reprovar</button>
+                        <div id="motivo-<?php echo htmlspecialchars($aluno['id_aluno']); ?>" class="hidden">
+                            <textarea id="motivo-texto-<?php echo htmlspecialchars($aluno['id_aluno']); ?>" placeholder="Digite o motivo da reprovação"></textarea>
+                            <button onclick="reprovar(<?php echo htmlspecialchars($aluno['id_aluno']); ?>, 'compromisso')">Enviar Reprovação</button>
+                        </div>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+
+    <h3>Alunos aguardando verificação da documentação de plano de atividades:</h3>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Nome do Aluno</th>
+                <th>Curso</th>
+                <th>Semestre</th>
+                <th>Plano de Atividades</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($alunos_atividades as $aluno): ?>
+                <tr>
+                <td><?php echo htmlspecialchars($aluno['nome_aluno']); ?></td>
+                    <td><?php echo htmlspecialchars($aluno['curso']); ?></td>
+                    <td><?php echo htmlspecialchars($aluno['semestre']); ?></td>
+                    <td>
                         <?php if (!empty($aluno['plano_atividades']) && !empty($aluno['caminho_atividades'])): ?>
                             <a href="baixar-atividade.php?arquivo=<?php echo urlencode($aluno['caminho_atividades']); ?>&nome=<?php echo urlencode($aluno['plano_atividades']); ?>" download>
                                 Baixar Plano de Atividades
@@ -171,8 +226,12 @@ try {
                         <?php endif; ?>
                     </td>
                     <td>
-                        <button onclick="aprovar(<?php echo htmlspecialchars($aluno['id_aluno']); ?>, 'compromisso')">Aprovar</button>
-                        <button onclick="reprovar(<?php echo htmlspecialchars($aluno['id_aluno']); ?>, 'compromisso')">Reprovar</button>
+                        <button onclick="aprovar(<?php echo htmlspecialchars($aluno['id_aluno']); ?>, 'atividades')">Aprovar</button>
+                        <button onclick="mostrarCampoReprovar(<?php echo htmlspecialchars($aluno['id_aluno']); ?>)">Reprovar</button>
+                        <div id="motivo-<?php echo htmlspecialchars($aluno['id_aluno']); ?>" class="hidden">
+                            <textarea id="motivo-texto-<?php echo htmlspecialchars($aluno['id_aluno']); ?>" placeholder="Digite o motivo da reprovação"></textarea>
+                            <button onclick="reprovar(<?php echo htmlspecialchars($aluno['id_aluno']); ?>, 'atividades')">Enviar Reprovação</button>
+                        </div>
                     </td>
                 </tr>
             <?php endforeach; ?>
@@ -208,7 +267,11 @@ try {
                     </td>
                     <td>
                         <button onclick="aprovar(<?php echo htmlspecialchars($aluno['id_aluno']); ?>, 'parcial')">Aprovar</button>
-                        <button onclick="reprovar(<?php echo htmlspecialchars($aluno['id_aluno']); ?>, 'parcial')">Reprovar</button>
+                        <button onclick="mostrarCampoReprovar(<?php echo htmlspecialchars($aluno['id_aluno']); ?>)">Reprovar</button>
+                        <div id="motivo-<?php echo htmlspecialchars($aluno['id_aluno']); ?>" class="hidden">
+                            <textarea id="motivo-texto-<?php echo htmlspecialchars($aluno['id_aluno']); ?>" placeholder="Digite o motivo da reprovação"></textarea>
+                            <button onclick="reprovar(<?php echo htmlspecialchars($aluno['id_aluno']); ?>, 'parcial')">Enviar Reprovação</button>
+                        </div>
                     </td>
                 </tr>
             <?php endforeach; ?>
@@ -244,13 +307,16 @@ try {
                     </td>
                     <td>
                         <button onclick="aprovar(<?php echo htmlspecialchars($aluno['id_aluno']); ?>, 'final')">Aprovar</button>
-                        <button onclick="reprovar(<?php echo htmlspecialchars($aluno['id_aluno']); ?>, 'final')">Reprovar</button>
+                        <button onclick="mostrarCampoReprovar(<?php echo htmlspecialchars($aluno['id_aluno']); ?>)">Reprovar</button>
+                        <div id="motivo-<?php echo htmlspecialchars($aluno['id_aluno']); ?>" class="hidden">
+                            <textarea id="motivo-texto-<?php echo htmlspecialchars($aluno['id_aluno']); ?>" placeholder="Digite o motivo da reprovação"></textarea>
+                            <button onclick="reprovar(<?php echo htmlspecialchars($aluno['id_aluno']); ?>, 'final')">Enviar Reprovação</button>
+                        </div>
                     </td>
                 </tr>
             <?php endforeach; ?>
         </tbody>
     </table>
-
 </body>
 </html>
 

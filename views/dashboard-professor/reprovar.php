@@ -45,7 +45,7 @@ try {
 
     $conexao->commit();
     echo "Documento reprovado com sucesso.";
-    header("Location: index-professor.php");
+    header("Location: index.php");
     exit();
 
 } catch (PDOException $e) {
