@@ -16,6 +16,9 @@ try {
         case 'final':
             $sql = "UPDATE tb_relatorio_final SET status = 'aprovado' WHERE fk_id_aluno = :id_aluno AND status = 'pendente'";
             break;
+        case 'atividades':
+                $sql = "UPDATE tb_atividades SET status = 'aprovado' WHERE fk_id_aluno = :id_aluno AND status = 'pendente'";
+                break;
         default:
             echo "Tipo inválido.";
             exit();

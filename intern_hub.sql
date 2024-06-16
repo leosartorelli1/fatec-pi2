@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 14/06/2024 às 04:06
+-- Tempo de geração: 17/06/2024 às 01:40
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
@@ -64,7 +64,8 @@ CREATE TABLE `tb_atividades` (
   `fk_id_aluno` int(11) DEFAULT NULL,
   `plano_atividades` varchar(512) DEFAULT NULL,
   `caminho_atividades` varchar(512) DEFAULT NULL,
-  `status` varchar(20) NOT NULL
+  `status` varchar(20) NOT NULL,
+  `motivo_reprovacao` varchar(512) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -78,7 +79,8 @@ CREATE TABLE `tb_compromisso` (
   `fk_id_aluno` int(11) DEFAULT NULL,
   `termo_compromisso` varchar(512) DEFAULT NULL,
   `caminho_compromisso` varchar(512) DEFAULT NULL,
-  `status` varchar(20) NOT NULL
+  `status` varchar(20) NOT NULL,
+  `motivo_reprovacao` varchar(512) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -162,7 +164,8 @@ CREATE TABLE `tb_relatorio_final` (
   `fk_id_aluno` int(11) DEFAULT NULL,
   `relatorio_final` varchar(512) DEFAULT NULL,
   `caminho_final` varchar(512) DEFAULT NULL,
-  `status` varchar(20) NOT NULL
+  `status` varchar(20) NOT NULL,
+  `motivo_reprovacao` varchar(512) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -176,7 +179,8 @@ CREATE TABLE `tb_relatorio_parcial` (
   `fk_id_aluno` int(11) DEFAULT NULL,
   `relatorio_parcial` varchar(512) DEFAULT NULL,
   `caminho_parcial` varchar(512) DEFAULT NULL,
-  `status` varchar(20) NOT NULL
+  `status` varchar(20) NOT NULL,
+  `motivo_reprovacao` varchar(512) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -308,13 +312,13 @@ ALTER TABLE `tb_alunos`
 -- AUTO_INCREMENT de tabela `tb_atividades`
 --
 ALTER TABLE `tb_atividades`
-  MODIFY `id_atividades` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_atividades` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de tabela `tb_compromisso`
 --
 ALTER TABLE `tb_compromisso`
-  MODIFY `id_compromisso` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_compromisso` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de tabela `tb_empresas`
@@ -338,13 +342,13 @@ ALTER TABLE `tb_professores`
 -- AUTO_INCREMENT de tabela `tb_relatorio_final`
 --
 ALTER TABLE `tb_relatorio_final`
-  MODIFY `id_final` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_final` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de tabela `tb_relatorio_parcial`
 --
 ALTER TABLE `tb_relatorio_parcial`
-  MODIFY `id_parcial` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_parcial` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de tabela `tb_representantes`
