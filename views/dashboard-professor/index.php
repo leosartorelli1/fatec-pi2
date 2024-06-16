@@ -25,84 +25,75 @@ try {
     $id_professor = $resultado_professor['id_professor'];
     $nome_professor = $resultado_professor['nome_professor'];
 
+    // Inclua o campo id_aluno em todas as consultas SQL
     $sql_alunos_compromisso = "
-            SELECT 
-                a.nome AS nome_aluno, 
-                a.curso, 
-                a.semestre, 
-                c.termo_compromisso, 
-                c.caminho_compromisso
-            FROM 
-                tb_alunos a
-            LEFT JOIN 
-                tb_compromisso c ON a.id_aluno = c.fk_id_aluno AND c.status = 'pendente'
-            WHERE 
-                c.status = 'pendente'
-        ";
-        $stmt_alunos_compromisso = $conexao->prepare($sql_alunos_compromisso);
-        $stmt_alunos_compromisso->execute();
-        $alunos_compromisso = $stmt_alunos_compromisso->fetchAll(PDO::FETCH_ASSOC);
+        SELECT 
+            a.id_aluno,
+            a.nome AS nome_aluno, 
+            a.curso, 
+            a.semestre, 
+            c.termo_compromisso, 
+            c.caminho_compromisso,
+            at.plano_atividades, 
+            at.caminho_atividades
+        FROM 
+            tb_alunos a
+        LEFT JOIN 
+            tb_compromisso c ON a.id_aluno = c.fk_id_aluno AND c.status = 'pendente'
+        LEFT JOIN 
+            tb_atividades at ON a.id_aluno = at.fk_id_aluno AND at.status = 'pendente'
+        WHERE 
+            c.status = 'pendente' OR at.status = 'pendente'
+    ";
+    $stmt_alunos_compromisso = $conexao->prepare($sql_alunos_compromisso);
+    $stmt_alunos_compromisso->execute();
+    $alunos_compromisso = $stmt_alunos_compromisso->fetchAll(PDO::FETCH_ASSOC);
 
-                $sql_alunos_atividades = "
-            SELECT 
-                a.nome AS nome_aluno, 
-                a.curso, 
-                a.semestre, 
-                at.plano_atividades, 
-                at.caminho_atividades
-            FROM 
-                tb_alunos a
-            LEFT JOIN 
-                tb_atividades at ON a.id_aluno = at.fk_id_aluno AND at.status = 'pendente'
-            WHERE 
-                at.status = 'pendente'
-        ";
-        $stmt_alunos_atividades = $conexao->prepare($sql_alunos_atividades);
-        $stmt_alunos_atividades->execute();
-        $alunos_atividades = $stmt_alunos_atividades->fetchAll(PDO::FETCH_ASSOC);
+    $sql_alunos_parcial = "
+        SELECT 
+            a.id_aluno,
+            a.nome AS nome_aluno, 
+            a.curso, 
+            a.semestre, 
+            rp.relatorio_parcial, 
+            rp.caminho_parcial
+        FROM 
+            tb_alunos a
+        LEFT JOIN 
+            tb_relatorio_parcial rp ON a.id_aluno = rp.fk_id_aluno AND rp.status = 'pendente'
+        WHERE 
+            rp.status = 'pendente'
+    ";
+    $stmt_alunos_parcial = $conexao->prepare($sql_alunos_parcial);
+    $stmt_alunos_parcial->execute();
+    $alunos_parcial = $stmt_alunos_parcial->fetchAll(PDO::FETCH_ASSOC);
 
+    $sql_alunos_final = "
+        SELECT 
+            a.id_aluno,
+            a.nome AS nome_aluno, 
+            a.curso, 
+            a.semestre, 
+            rf.relatorio_final, 
+            rf.caminho_final
+        FROM 
+            tb_alunos a
+        LEFT JOIN 
+            tb_relatorio_final rf ON a.id_aluno = rf.fk_id_aluno AND rf.status = 'pendente'
+        WHERE 
+            rf.status = 'pendente'
+    ";
+    $stmt_alunos_final = $conexao->prepare($sql_alunos_final);
+    $stmt_alunos_final->execute();
+    $alunos_final = $stmt_alunos_final->fetchAll(PDO::FETCH_ASSOC);
 
-            $sql_alunos_parcial = "
-            SELECT 
-                a.nome AS nome_aluno, 
-                a.curso, 
-                a.semestre, 
-                rp.relatorio_parcial, 
-                rp.caminho_parcial
-            FROM 
-                tb_alunos a
-            LEFT JOIN 
-                tb_relatorio_parcial rp ON a.id_aluno = rp.fk_id_aluno AND rp.status = 'pendente'
-            WHERE 
-                rp.status = 'pendente'
-        ";
-        $stmt_alunos_parcial = $conexao->prepare($sql_alunos_parcial);
-        $stmt_alunos_parcial->execute();
-        $alunos_parcial = $stmt_alunos_parcial->fetchAll(PDO::FETCH_ASSOC);
-
-            $sql_alunos_final = "
-            SELECT 
-                a.nome AS nome_aluno, 
-                a.curso, 
-                a.semestre, 
-                rf.relatorio_final, 
-                rf.caminho_final
-            FROM 
-                tb_alunos a
-            LEFT JOIN 
-                tb_relatorio_final rf ON a.id_aluno = rf.fk_id_aluno AND rf.status = 'pendente'
-            WHERE 
-                rf.status = 'pendente'
-        ";
-        $stmt_alunos_final = $conexao->prepare($sql_alunos_final);
-        $stmt_alunos_final->execute();
-        $alunos_final = $stmt_alunos_final->fetchAll(PDO::FETCH_ASSOC);
-
-        } catch (PDOException $e) {
-            echo "Erro ao acessar o banco de dados: " . $e->getMessage();
-            exit();
-        }
+} catch (PDOException $e) {
+    echo "Erro ao acessar o banco de dados: " . $e->getMessage();
+    exit();
+}
 ?>
+
+
 
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -122,6 +113,20 @@ try {
             text-align: center;
         }
     </style>
+    <script>
+        function aprovar(id, tipo) {
+            if (confirm("Tem certeza que deseja aprovar este documento?")) {
+                window.location.href = "aprovar.php?id=" + id + "&tipo=" + tipo;
+            }
+        }
+
+        function reprovar(id, tipo) {
+            let motivo = prompt("Digite o motivo da reprovação:");
+            if (motivo) {
+                window.location.href = "reprovar.php?id=" + id + "&tipo=" + tipo + "&motivo=" + encodeURIComponent(motivo);
+            }
+        }
+    </script>
 </head>
 <body>
     <h2>Olá, <span><?php echo htmlspecialchars($nome_professor); ?></span>! Bem-vindo à Plataforma InternHub!</h2>
@@ -138,6 +143,7 @@ try {
                 <th>Semestre</th>
                 <th>Termo de Compromisso</th>
                 <th>Plano de Atividades</th>
+                <th>Ações</th>
             </tr>
         </thead>
         <tbody>
@@ -164,6 +170,10 @@ try {
                             Nenhum arquivo disponível
                         <?php endif; ?>
                     </td>
+                    <td>
+                        <button onclick="aprovar(<?php echo htmlspecialchars($aluno['id_aluno']); ?>, 'compromisso')">Aprovar</button>
+                        <button onclick="reprovar(<?php echo htmlspecialchars($aluno['id_aluno']); ?>, 'compromisso')">Reprovar</button>
+                    </td>
                 </tr>
             <?php endforeach; ?>
         </tbody>
@@ -178,6 +188,7 @@ try {
                 <th>Curso</th>
                 <th>Semestre</th>
                 <th>Relatório Parcial</th>
+                <th>Ações</th>
             </tr>
         </thead>
         <tbody>
@@ -195,6 +206,10 @@ try {
                             Nenhum arquivo disponível
                         <?php endif; ?>
                     </td>
+                    <td>
+                        <button onclick="aprovar(<?php echo htmlspecialchars($aluno['id_aluno']); ?>, 'parcial')">Aprovar</button>
+                        <button onclick="reprovar(<?php echo htmlspecialchars($aluno['id_aluno']); ?>, 'parcial')">Reprovar</button>
+                    </td>
                 </tr>
             <?php endforeach; ?>
         </tbody>
@@ -209,6 +224,7 @@ try {
                 <th>Curso</th>
                 <th>Semestre</th>
                 <th>Relatório Final</th>
+                <th>Ações</th>
             </tr>
         </thead>
         <tbody>
@@ -226,6 +242,10 @@ try {
                             Nenhum arquivo disponível
                         <?php endif; ?>
                     </td>
+                    <td>
+                        <button onclick="aprovar(<?php echo htmlspecialchars($aluno['id_aluno']); ?>, 'final')">Aprovar</button>
+                        <button onclick="reprovar(<?php echo htmlspecialchars($aluno['id_aluno']); ?>, 'final')">Reprovar</button>
+                    </td>
                 </tr>
             <?php endforeach; ?>
         </tbody>
@@ -233,3 +253,4 @@ try {
 
 </body>
 </html>
+
