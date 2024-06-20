@@ -202,8 +202,6 @@ try {
                         Aprovado
                     <?php elseif ($dados_aluno['status_final'] == 'reprovado'): ?>
                         Reprovado
-                    <?php else: ?>
-                        Status não especificado
                     <?php endif; ?>
                 </td>
                 <td><?php echo ($dados_aluno['status_final'] == 'reprovado') ? 'Reprovado - ' . htmlspecialchars($dados_aluno['motivo_reprovacao_final']) : ''; ?></td>
