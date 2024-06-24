@@ -103,8 +103,11 @@
         </table>
     
 
-        <label for="periodo">Período previsto (início e término):</label>
+        <label for="periodo">Período previsto (início):</label>
         <input type="date" id="periodo" name="periodo"></div>
+
+        <label for="periodo_termino">Período previsto (término):</label>
+        <input type="date" id="periodo_termino" name="periodo_termino"></div>
 
         <div class="cps-principal-empresa">
 

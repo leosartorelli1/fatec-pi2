@@ -123,6 +123,7 @@ $atividade_estagio = $_POST['atividade'];
 $descricao_estagio = $_POST['descricao'];
 $resultado_esperado = $_POST['resultado'];
 $periodo_estagio = $_POST['periodo'];
+$periodo_termino = $_POST ['periodo_termino'];
 $data_definida = $_POST['data_definida'];
 
 
@@ -178,7 +179,7 @@ $html = "
                 <br><br>Atividade:	$atividade_estagio
                 <br><br>Descrição da atividade: $descricao_estagio	
                 <br><br>Objetivo ou resultado esperado: $resultado_esperado
-                <br><br>Período previsto (início e término) $periodo_estagio 
+                <br><br>Período previsto (início e término) $periodo_estagio, $periodo_termino 
 
                 Estagiário: 
                  <br><br><br><br><br><br><br><br><br><br><br>

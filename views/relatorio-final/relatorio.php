@@ -121,10 +121,10 @@ if ($resultado_empresa) {
         <input type="text" id="cargo_supervisor" name="cargo_supervisor" required></div>
 
        <label for="data_inicio"> Data de inicio:</label>
-        <input type="text" id="data_inicio" name="data_inicio" required>
+        <input type="date" id="data_inicio" name="data_inicio" required>
 
         <label for="data_termino"> Data de término:</label>
-        <input type="text" id="data_termino" name="data_termino" required>
+        <input type="date" id="data_termino" name="data_termino" required>
         </div>
 
         <div class="button"><button type="submit">Enviar</button></div>

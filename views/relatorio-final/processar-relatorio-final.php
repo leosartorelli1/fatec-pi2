@@ -80,44 +80,47 @@ $html = "
 </head>
 <body>
    <p>
-   1.	Dados do Estagiário
-Nome: $nome
-RA:  $ra
-Curso: DSM - Desenvolvimento de Software Multiplataforma
-2.	Dados da Empresa Concedente
-Nome da empresa: $nome_empresa
-Nome do supervisor do estagiário: $nome_supervisor
-Cargo do supervisor do estagiário: $cargo_supervisor
-3.	Período
-Data de início do estágio: $data_inicio
-Data de término do estágio: $data_termino
-4.	Atividades realizadas no Estágio (preenchido pelo estagiário)
-Descreva as principais atividades desenvolvidas durante o estágio. 
-As atividades realizadas atenderam às suas expectativas?\ Explique.
-Por meio das atividades desenvolvidas no estágio você teve condições de aplicar os conhecimentos teóricos e práticos obtidos durantes o curso? Explique
-Descreva  os principais desafios encontrados no seu estágio e como foram resolvidos. 
-5.	Avaliação do Supervisor
-Habilidades	Desempenho
-	1	2	3	4	5	6	7	8	9	10
-Planejamento
-O estagiário planeja as atividades procurando estabelecer prioridades e metas.										
-Qualidade do Trabalho
-O estagiário executa as atividades com qualidade, tendo em vista as condições de trabalho oferecidas. 										
-Pontualidade e Assiduidade
-O estagiário cumpre com os horários, sem atrasos ou faltas. 										
-Disciplina
-O estagiário cumpre as normas vigentes na empresa, bem como as normas de segurança e o uso de EPI quando necessário. 										
-Iniciativa e Participação
-O estagiário é participativo, procura apresentar ideias para a melhoria dos processos, das atividades e do ambiente de trabalho. 										
-Relacionamento em Grupo
-O estagiário procura manter bom relacionamento com todos, sendo prestativo e participativo.										
-Responsabilidade e Comprometimento
-O estagiário entende as tarefas atribuídas e entende como realiza-las; realiza as tarefas com autonomia, respeitando os prazos estabelecidos para cada tarefa realizada.										
-Organização
-O estagiário mantém o local de trabalho organizado, consegue administrar o tempo com facilidade, e localiza facilmente as atividades realizadas ou as entregas feitas. 
+   1.	Dados do Estagiário <br> <br>
+Nome: $nome <br> <br>
+RA:  $ra <br> <br>
+Curso: DSM - Desenvolvimento de Software Multiplataforma <br> <br>
+2.	Dados da Empresa Concedente <br> <br>
+Nome da empresa: $nome_empresa <br> <br>
+Nome do supervisor do estagiário: $nome_supervisor <br> <br>
+Cargo do supervisor do estagiário: $cargo_supervisor <br> <br>
+3.	Período <br> <br>
+Data de início do estágio: $data_inicio <br> <br>
+Data de término do estágio: $data_termino <br> <br>
+4.	Atividades realizadas no Estágio (preenchido pelo estagiário) <br> <br>
+Descreva as principais atividades desenvolvidas durante o estágio. <br> <br> <br> <br> <br> <br>
+As atividades realizadas atenderam às suas expectativas? Explique. <br> <br> <br> <br> <br> <br>
+Por meio das atividades desenvolvidas no estágio você teve condições de aplicar os conhecimentos teóricos e práticos obtidos durantes o curso? Explique <br> <br> <br> <br> <br> <br>
+Descreva  os principais desafios encontrados no seu estágio e como foram resolvidos. <br> <br> <br> <br> <br> <br>
+5.	Avaliação do Supervisor <br> <br> <br> <br> <br> <br>
+Habilidades	Desempenho 
+	(Nota entre 1 e 10) <br> <br>
+Planejamento <br> 
+O estagiário planeja as atividades procurando estabelecer prioridades e metas. <br> <br>	 									
+Qualidade do Trabalho <br>
+O estagiário executa as atividades com qualidade, tendo em vista as condições de trabalho oferecidas. 	<br> <br>									
+Pontualidade e Assiduidade <br>
+O estagiário cumpre com os horários, sem atrasos ou faltas. <br> <br>	 									
+Disciplina <br>
+O estagiário cumpre as normas vigentes na empresa, bem como as normas de segurança e o uso de EPI quando necessário. <br> <br>										
+Iniciativa e Participação <br>
+O estagiário é participativo, procura apresentar ideias para a melhoria dos processos, das atividades e do ambiente de trabalho. <br> <br>	
+
+Relacionamento em Grupo <br>
+O estagiário procura manter bom relacionamento com todos, sendo prestativo e participativo.	<br> <br>	
+
+Responsabilidade e Comprometimento <br>
+O estagiário entende as tarefas atribuídas e entende como realiza-las; realiza as tarefas com autonomia, respeitando os prazos estabelecidos para cada tarefa realizada.	<br> <br>		
+
+Organização <br>
+O estagiário mantém o local de trabalho organizado, consegue administrar o tempo com facilidade, e localiza facilmente as atividades realizadas ou as entregas feitas. <br> <br>
 										
-Comunicação
-O estagiário se expressa bem, com clareza, desenvoltura e segurança tanto na comunicação oral quanto na escrita.  										
+Comunicação <br>
+O estagiário se expressa bem, com clareza, desenvoltura e segurança tanto na comunicação oral quanto na escrita.  		<br> <br>								
 
 Comentários adicionais:
 

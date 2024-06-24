@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 17/06/2024 às 01:40
+-- Tempo de geração: 25/06/2024 às 01:02
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
@@ -50,8 +50,7 @@ CREATE TABLE `tb_alunos` (
 --
 
 INSERT INTO `tb_alunos` (`id_aluno`, `fk_id_usuario`, `nome`, `rg`, `ra`, `telefone`, `logradouro`, `numero`, `bairro`, `cidade`, `estado`, `cep`, `curso`, `semestre`, `email`) VALUES
-(1, 1, 'Leonardo Sartorelli', '12.345.678-9', '2781392323005', '(19) 99999-9999', 'Rua dos Periquitos ', '370', 'Recanto dos Passaros', 'ITAPIRA ', 'São Paulo', '13970-000', 'Desenvolvimento de Software Multiplataforma ', '1 Semestre', 'leonardo.sartorelli@fatec.sp.gov.br\r\n'),
-(2, 3, 'Jorge', '', '', '', '', '', '', '', '', '', '', '', '');
+(1, 1, 'Leonardo Sartorelli', '12.345.678-9', '2781392323005', '(19) 99999-9999', 'Rua dos Periquitos ', '370', 'Recanto dos Passaros', 'ITAPIRA ', 'São Paulo', '13970-000', 'Desenvolvimento de Software Multiplataforma ', '1 Semestre', 'leonardo.sartorelli@fatec.sp.gov.br\r\n');
 
 -- --------------------------------------------------------
 
@@ -97,13 +96,6 @@ CREATE TABLE `tb_empresas` (
   `endereco` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Despejando dados para a tabela `tb_empresas`
---
-
-INSERT INTO `tb_empresas` (`id_empresa`, `fk_id_representante`, `nome`, `cnpj`, `endereco`) VALUES
-(3, 16, 'Rogério Tech ', '12.278.123/0001-01', 'Avenida das Rolinhas, 123, Centro, Itapira-Sp ');
-
 -- --------------------------------------------------------
 
 --
@@ -126,13 +118,6 @@ CREATE TABLE `tb_estagios` (
   `fk_id_aluno` int(11) DEFAULT NULL,
   `fk_id_empresa` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Despejando dados para a tabela `tb_estagios`
---
-
-INSERT INTO `tb_estagios` (`id_estagio`, `horario_inicio`, `horario_termino`, `inicio_intervalo`, `termino_intervalo`, `total_horas`, `data_inicio`, `data_termino`, `salario`, `apolice`, `seguradora`, `file_path`, `fk_id_aluno`, `fk_id_empresa`) VALUES
-(4, '08:00', '16:00', '11:00', '13:00', '44', '2024-05-01', '2024-12-01', '1500', '121231231321', 'Porto', '', 1, 3);
 
 -- --------------------------------------------------------
 
@@ -196,13 +181,6 @@ CREATE TABLE `tb_representantes` (
   `cargo` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Despejando dados para a tabela `tb_representantes`
---
-
-INSERT INTO `tb_representantes` (`id_representante`, `nome`, `cpf`, `cargo`) VALUES
-(16, 'João da Silva ', '123.123.123-12', 'Gerente ');
-
 -- --------------------------------------------------------
 
 --
@@ -222,8 +200,7 @@ CREATE TABLE `tb_usuarios` (
 
 INSERT INTO `tb_usuarios` (`id_usuario`, `usuario`, `senha`, `permissao`) VALUES
 (1, 'leonardo', '1234', 'aluno'),
-(2, 'joao', '1234', 'prof'),
-(3, 'jorge', '1234', 'aluno');
+(2, 'joao', '1234', 'prof');
 
 --
 -- Índices para tabelas despejadas
@@ -306,31 +283,31 @@ ALTER TABLE `tb_usuarios`
 -- AUTO_INCREMENT de tabela `tb_alunos`
 --
 ALTER TABLE `tb_alunos`
-  MODIFY `id_aluno` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_aluno` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de tabela `tb_atividades`
 --
 ALTER TABLE `tb_atividades`
-  MODIFY `id_atividades` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_atividades` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de tabela `tb_compromisso`
 --
 ALTER TABLE `tb_compromisso`
-  MODIFY `id_compromisso` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_compromisso` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de tabela `tb_empresas`
 --
 ALTER TABLE `tb_empresas`
-  MODIFY `id_empresa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_empresa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de tabela `tb_estagios`
 --
 ALTER TABLE `tb_estagios`
-  MODIFY `id_estagio` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_estagio` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de tabela `tb_professores`
@@ -354,13 +331,13 @@ ALTER TABLE `tb_relatorio_parcial`
 -- AUTO_INCREMENT de tabela `tb_representantes`
 --
 ALTER TABLE `tb_representantes`
-  MODIFY `id_representante` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id_representante` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT de tabela `tb_usuarios`
 --
 ALTER TABLE `tb_usuarios`
-  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Restrições para tabelas despejadas
