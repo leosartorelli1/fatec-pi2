@@ -15,7 +15,8 @@
     <div class="login">
     <form id="form-login" action="../usuarios/usuario-login.php" method="post">
 
-        <img class="fatec-logo" src="../../img/fatec-logo.svg" alt="">
+    <img src="../../img/fatec-logo.svg" width="150" height="60">
+    <img src="../../img/cps-logo.svg" width="150" height="60">
         
         <div class="login">
             <div class="input-wrapper">

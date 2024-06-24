@@ -144,20 +144,20 @@ $html = "
 
     <strong>Identificação da Empresa </strong>
 
-    <br><br><strong>Nome da Empresa :</strong> 
+    <br><br><strong>Nome da Empresa :</strong> $nome_empresa
     <br><br><strong>Divisão ou departamento de aplicação do estágio  :</strong>
-    <br><br><strong>Endereço :</strong>
+    <br><br><strong>Endereço :</strong> $endereco_empresa
     <br><br><strong>Bairro :</strong>
-    <br><br><strong>Telefone/ramal :</strong>
-    <br><br><strong>Cep :</strong>
-    <br><br><strong>Cidade :</strong>
-    <br><br><strong>Estado :</strong>
-    <br><br><strong>Email :</strong>
-    <br><br><strong>Site :</strong>
+    <br><br><strong>Telefone/ramal :</strong> $telefone_empresa 
+    <br><br><strong>Cep :</strong> $cep
+    <br><br><strong>Cidade :</strong> $cidade 
+    <br><br><strong>Estado :</strong> $estado
+    <br><br><strong>Email :</strong> $email_empresa
+    <br><br><strong>Site :</strong> $site
 
-    <br><br><strong>Nome do Supervisor :</strong>
-    <br><br><strong>Cargo do Supervisor :</strong>
-    <br><br><strong>Contato do Supervisor :</strong>
+    <br><br><strong>Nome do Supervisor :</strong>  $nome_representante 
+    <br><br><strong>Cargo do Supervisor :</strong>  $cargo 
+    <br><br><strong>Contato do Supervisor :</strong> $contato_representante 
 
     <br><br>
     Classificação:
@@ -175,10 +175,10 @@ $html = "
                 Cronograma (escreva a seguir as atividades que serão desenvolvidas no estágio. 
                 <br><br>
                 <br><br>Explique cada uma resumidamente e inclua linhas, se necessário): 
-                <br><br>Atividade:	
-                <br><br>Descrição da atividade: 	
-                <br><br>Objetivo ou resultado esperado:
-                <br><br>Período previsto (início e término)
+                <br><br>Atividade:	$atividade_estagio
+                <br><br>Descrição da atividade: $descricao_estagio	
+                <br><br>Objetivo ou resultado esperado: $resultado_esperado
+                <br><br>Período previsto (início e término) $periodo_estagio 
 
                 Estagiário: 
                  <br><br><br><br><br><br><br><br><br><br><br>

@@ -97,7 +97,7 @@ li a:hover {
 }
 
 
-#lei {
+.link {
     font-weight: 500;
     color: #B20000;
     background-color: transparent;
@@ -105,16 +105,60 @@ li a:hover {
     text-decoration: none;
 }
 
-#lei:hover{
-    color: #FF0000;
-    background-color: #FFF0F0; 
-}
+
+
 .cps-principal{
     max-width: 120rem;
     margin: 0 auto 50px;
     padding: 0 1.6rem;
+    margin-bottom: 0px;
 }
 
+.cps-principal-aluno{
+    max-width: 120rem;
+    margin: 0 100px 20px;
+    padding: 0 1.6rem;
+    border:#D9D9D9 solid;
+    
+}
+
+.cps-principal-empresa{
+    max-width: 120rem;
+    margin: 0 100px 20px;
+    padding: 0 1.6rem;
+    border:#D9D9D9 solid;
+    
+}
+
+input[type='text']{
+    width:25%;
+    margin-right: 15px;
+    font-size: 14px;
+}
+
+input[type='time']{
+    width: 7%;
+    margin-right: 15px;
+}
+
+input[type='date']{
+    width: 10%;
+    margin-right: 15px;
+}
+
+input[name="cep"]{
+    width: 9%;
+}
+
+.button{
+    display: flex;
+    justify-content: center;   
+    padding-bottom: 70px;
+}
+button{
+    width: 100px;
+    height: 40px;
+}
 .cps-conteudo{
     display: flex;
     justify-content: center;
@@ -236,3 +280,33 @@ td {
 }
 
 
+.container {
+    width: 80%;
+    max-width: 600px;
+}
+.text-area {
+    width: 100%;
+    height: 100px;
+    resize: none; 
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 16px;
+    box-sizing: border-box;
+    word-wrap: break-word; 
+    white-space: pre-wrap; 
+    overflow-wrap: break-word; 
+    vertical-align: top; 
+}
+
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 16px;
+    text-align: left;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    box-shadow: 0 2px 3px rgba(0,0,0,0.1);
+}

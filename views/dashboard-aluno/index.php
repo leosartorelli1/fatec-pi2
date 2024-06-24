@@ -34,7 +34,7 @@ if ($resultado) {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap">
     <link rel="stylesheet" href="style.css">
-    <title>Dashboard</title>
+    <title>Index2</title>
 </head>
 <body>
     <header>
@@ -55,8 +55,8 @@ if ($resultado) {
             </nav>
         </div>
 
-        <div>
-            <a href="../usuarios/usuario-logout.php">Logout</a>
+        <div class="logout">
+          <a href="../usuarios/usuario-logout.php"> <img src="../../img/logout.svg" title="Sair da página"></a>
         </div>
     </header>
 

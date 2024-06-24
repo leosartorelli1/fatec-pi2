@@ -116,6 +116,10 @@ try {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap">
+    <link rel="stylesheet" href="style.css">
+   
     <title>DashBoard Professor</title>
     <style>
         table {
@@ -154,10 +158,35 @@ try {
     </script>
 </head>
 <body>
-    <h2>Olá, <span><?php echo htmlspecialchars($nome_professor); ?></span>! Bem-vindo à Plataforma InternHub!</h2>
+<header>
+        <div>
+            <img src="../../img/fatec-logo.svg" width="150" height="60">
+            <img src="../../img/cps-logo.svg" width="150" height="60">
+        </div>
 
-    <p>Nesta área, você pode verificar a documentação de início de estágio e também os relatórios parcial e final dos alunos.</p>
+        <div>
+            <nav>
+                <ul>
+                    <li><a href="#term">Termo de Compromisso</a></li>
+                    <li><a href="#plan">Plano de Atividades</a></li>
+                    <li><a href="#rel-parcial">Relatório Parcial</a></li>
+                    <li><a href="#rel-final">Relatório Final</a></li>
+                </ul>
+            </nav>
+        </div>
 
+        <div class="logout">
+          <a href="../usuarios/usuario-logout.php"> <img src="../../img/logout.svg" title="Sair da página"></a>
+        </div>
+    </header>
+
+        <div class="cps-principal">
+    <h2>Olá, <span><?php echo htmlspecialchars($nome_professor); ?></span>! Bem-vindo à Plataforma do Professor!</h2>
+        <span class="divisor"></span>
+    <p>Aqui é o Portal do Professor, onde serão listados os alunos com confirmações pendentes em seu processo de estágio. Neste espaço, as solicitações serão analisadas e você poderá aprovar ou reprovar cada caso.</p> <br><br>
+
+    <section id="term">
+    <div class="cps-principal-professor">
     <h3>Alunos aguardando verificação da documentação de termo de compromisso:</h3>
 
     <table>
@@ -186,18 +215,22 @@ try {
                         <?php endif; ?>
                     </td>
                     <td>
-                        <button onclick="aprovar(<?php echo htmlspecialchars($aluno['id_aluno']); ?>, 'compromisso')">Aprovar</button>
-                        <button onclick="mostrarCampoReprovar(<?php echo htmlspecialchars($aluno['id_aluno']); ?>)">Reprovar</button>
+                        <button class="feedback-positive"onclick="aprovar(<?php echo htmlspecialchars($aluno['id_aluno']); ?>, 'compromisso')">Aprovar</button>
+                        <button class="feedback-reprove" onclick="mostrarCampoReprovar(<?php echo htmlspecialchars($aluno['id_aluno']); ?>)">Reprovar</button>
                         <div id="motivo-<?php echo htmlspecialchars($aluno['id_aluno']); ?>" class="hidden">
-                            <textarea id="motivo-texto-<?php echo htmlspecialchars($aluno['id_aluno']); ?>" placeholder="Digite o motivo da reprovação"></textarea>
-                            <button onclick="reprovar(<?php echo htmlspecialchars($aluno['id_aluno']); ?>, 'compromisso')">Enviar Reprovação</button>
+                            <textarea class="motive" id="motivo-texto-<?php echo htmlspecialchars($aluno['id_aluno']); ?>" placeholder="Digite o motivo da reprovação"></textarea>
+                            <button class="feedback-envio" onclick="reprovar(<?php echo htmlspecialchars($aluno['id_aluno']); ?>, 'compromisso')">Enviar Reprovação</button>
                         </div>
                     </td>
                 </tr>
             <?php endforeach; ?>
         </tbody>
     </table>
+    </div>
+    </section>
 
+    <section id="plan">
+    <div class="cps-principal-professor">
     <h3>Alunos aguardando verificação da documentação de plano de atividades:</h3>
 
     <table>
@@ -226,18 +259,23 @@ try {
                         <?php endif; ?>
                     </td>
                     <td>
-                        <button onclick="aprovar(<?php echo htmlspecialchars($aluno['id_aluno']); ?>, 'atividades')">Aprovar</button>
-                        <button onclick="mostrarCampoReprovar(<?php echo htmlspecialchars($aluno['id_aluno']); ?>)">Reprovar</button>
-                        <div id="motivo-<?php echo htmlspecialchars($aluno['id_aluno']); ?>" class="hidden">
-                            <textarea id="motivo-texto-<?php echo htmlspecialchars($aluno['id_aluno']); ?>" placeholder="Digite o motivo da reprovação"></textarea>
-                            <button onclick="reprovar(<?php echo htmlspecialchars($aluno['id_aluno']); ?>, 'atividades')">Enviar Reprovação</button>
+                        <button class="feedback-positive" onclick="aprovar(<?php echo htmlspecialchars($aluno['id_aluno']); ?>, 'atividades')">Aprovar</button>
+                        <button class="feedback-reprove" onclick="mostrarCampoReprovar(<?php echo htmlspecialchars($aluno['id_aluno']); ?>)">Reprovar</button>
+                        <div class="motive" id="motivo-<?php echo htmlspecialchars($aluno['id_aluno']); ?>" class="hidden">
+                            <textarea class="motive" id="motivo-texto-<?php echo htmlspecialchars($aluno['id_aluno']); ?>" placeholder="Digite o motivo da reprovação"></textarea>
+                            <button class="feedback-envio" onclick="reprovar(<?php echo htmlspecialchars($aluno['id_aluno']); ?>, 'atividades')">Enviar Reprovação</button>
                         </div>
                     </td>
                 </tr>
             <?php endforeach; ?>
         </tbody>
     </table>
+    </div>
+    </section>
 
+
+    <section id="rel-parcial">
+    <div class="cps-principal-professor">
     <h3>Alunos aguardando verificação da documentação de relatório parcial:</h3>
 
     <table>
@@ -266,18 +304,22 @@ try {
                         <?php endif; ?>
                     </td>
                     <td>
-                        <button onclick="aprovar(<?php echo htmlspecialchars($aluno['id_aluno']); ?>, 'parcial')">Aprovar</button>
-                        <button onclick="mostrarCampoReprovar(<?php echo htmlspecialchars($aluno['id_aluno']); ?>)">Reprovar</button>
-                        <div id="motivo-<?php echo htmlspecialchars($aluno['id_aluno']); ?>" class="hidden">
-                            <textarea id="motivo-texto-<?php echo htmlspecialchars($aluno['id_aluno']); ?>" placeholder="Digite o motivo da reprovação"></textarea>
-                            <button onclick="reprovar(<?php echo htmlspecialchars($aluno['id_aluno']); ?>, 'parcial')">Enviar Reprovação</button>
+                        <button class="feedback-positive" onclick="aprovar(<?php echo htmlspecialchars($aluno['id_aluno']); ?>, 'parcial')">Aprovar</button>
+                        <button  class="feedback-reprove" onclick="mostrarCampoReprovar(<?php echo htmlspecialchars($aluno['id_aluno']); ?>)">Reprovar</button>
+                        <div  id="motivo-<?php echo htmlspecialchars($aluno['id_aluno']); ?>" class="hidden">
+                            <textarea class="motive" id="motivo-texto-<?php echo htmlspecialchars($aluno['id_aluno']); ?>" placeholder="Digite o motivo da reprovação"></textarea>
+                            <button class="feedback-envio" onclick="reprovar(<?php echo htmlspecialchars($aluno['id_aluno']); ?>, 'parcial')">Enviar Reprovação</button>
                         </div>
                     </td>
                 </tr>
             <?php endforeach; ?>
         </tbody>
     </table>
-
+    </div>
+    </section>
+    
+    <section id="rel-final">
+    <div class="cps-principal-professor">
     <h3>Alunos aguardando verificação da documentação de relatório final:</h3>
 
     <table>
@@ -306,17 +348,20 @@ try {
                         <?php endif; ?>
                     </td>
                     <td>
-                        <button onclick="aprovar(<?php echo htmlspecialchars($aluno['id_aluno']); ?>, 'final')">Aprovar</button>
-                        <button onclick="mostrarCampoReprovar(<?php echo htmlspecialchars($aluno['id_aluno']); ?>)">Reprovar</button>
+                        <button class="feedback-positive" onclick="aprovar(<?php echo htmlspecialchars($aluno['id_aluno']); ?>, 'final')">Aprovar</button>
+                        <button class="feedback-reprove" onclick="mostrarCampoReprovar(<?php echo htmlspecialchars($aluno['id_aluno']); ?>)">Reprovar</button>
                         <div id="motivo-<?php echo htmlspecialchars($aluno['id_aluno']); ?>" class="hidden">
-                            <textarea id="motivo-texto-<?php echo htmlspecialchars($aluno['id_aluno']); ?>" placeholder="Digite o motivo da reprovação"></textarea>
-                            <button onclick="reprovar(<?php echo htmlspecialchars($aluno['id_aluno']); ?>, 'final')">Enviar Reprovação</button>
+                            <textarea class="motive" id="motivo-texto-<?php echo htmlspecialchars($aluno['id_aluno']); ?>" placeholder="Digite o motivo da reprovação"></textarea>
+                            <button class="feedback-envio" onclick="reprovar(<?php echo htmlspecialchars($aluno['id_aluno']); ?>, 'final')">Enviar Reprovação</button>
                         </div>
                     </td>
                 </tr>
             <?php endforeach; ?>
         </tbody>
     </table>
+    </div> 
+    </section>
+    </div>
 </body>
 </html>
 

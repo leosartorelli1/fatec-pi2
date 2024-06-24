@@ -97,7 +97,7 @@ li a:hover {
 }
 
 
-#lei {
+.link {
     font-weight: 500;
     color: #B20000;
     background-color: transparent;
@@ -105,7 +105,7 @@ li a:hover {
     text-decoration: none;
 }
 
-#lei:hover{
+.link:hover{
     color: #FF0000;
     background-color: #FFF0F0; 
 }
@@ -234,5 +234,3 @@ td {
 .logout{
     margin-right: 15px;
 }
-
-
