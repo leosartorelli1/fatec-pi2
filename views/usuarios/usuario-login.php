@@ -21,11 +21,12 @@ if ($usuario_logado == null) {
 } else {
     session_start();
     $_SESSION['usuario_logado'] = $usuario_logado;
-    $_SESSION['id_usuario'] = $id_usuario; 
 
     if ($permissao == 'aluno') {
+        $_SESSION['id_usuario'] = $id_usuario; 
         header("Location:../dashboard-aluno/index.php");
     } elseif ($permissao == 'prof') {
+        $_SESSION['id_usuario_professor'] = $id_usuario; 
         header("Location:../dashboard-professor/index.php");
     } else {
         header("Location:usuario-erro.php");
